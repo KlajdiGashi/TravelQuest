@@ -7,6 +7,7 @@ FrontEnd/node_modules
 FrontEnd/.expo/
 FrontEnd/dist/
 FrontEnd/web-build/
+FrontEnd/yarn.lock
 
 # Native
 FrontEnd/*.orig.*

@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/native-stack';
 import ForgotPasswordScreen from './ForgotPassword';
-
-const Stack = createStackNavigator();
 
 export default function App() {
   const [email, setEmail] = useState('');
@@ -15,20 +11,10 @@ export default function App() {
     console.log('Email:', email);
     console.log('Password:', password);
     
-    navigation.navigate('ForgotPassword');
+    // navigation.navigate('ForgotPassword'); // Remove this line
+    console.log('Navigating to Forgot Password screen');
   };
 
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
