@@ -34,3 +34,8 @@ FrontEnd/.env*.local
 
 # typescript
 FrontEnd/*.tsbuildinfo
+
+#Backend venv
+BackEnd/venv
+BackEnd/test.py
+BackEnd/requirements.txt
