@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
     // API here (Very important)
-    console.log('Email:', email);
+    console.log('Username:', username);
     console.log('Password:', password);
   };
 
@@ -21,13 +21,13 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Email:</Text>
+        <Text style={styles.label}>username:</Text>
         <TextInput
           style={styles.input}
-          onChangeText={setEmail}
+          onChangeText={setUsername}
           value={email}
-          placeholder="Enter your email"
-          keyboardType="email-address"
+          placeholder="Enter your username"
+          keyboardType="username"
           autoCapitalize="none"
         />
       </View>
