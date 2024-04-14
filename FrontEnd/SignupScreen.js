@@ -10,13 +10,13 @@ export default function SignupScreen({ navigation }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSignup = () => {
-    // Validate inputs and perform signup logic here
+    
     if (name.trim() === '' || number.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
       alert('Please fill in all fields.');
     } else if (password !== confirmPassword) {
       alert('Passwords do not match. Please try again.');
     } else {
-      // Signup successful, navigate to the next screen (e.g., HomeScreen)
+      
       navigation.navigate('Home');
     }
   };
@@ -98,14 +98,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 40,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#44B4F3', // Updated color to match LoginScreen
     borderRadius: 5,
     paddingHorizontal: 10,
   },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: '#ccc',
+    borderColor: '#44B4F3', // Updated color to match LoginScreen
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   signupButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#005C99', // Updated color to match LoginScreen
     width: '100%',
     height: 40,
     justifyContent: 'center',
