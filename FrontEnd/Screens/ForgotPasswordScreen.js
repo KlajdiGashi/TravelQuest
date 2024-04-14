@@ -54,7 +54,7 @@ export default function ForgotPasswordScreen({ navigation }) {
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Enter your username:</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}
             onChangeText={setUsername}
             value={username}
             placeholder="Username"
@@ -69,7 +69,7 @@ export default function ForgotPasswordScreen({ navigation }) {
           <Text style={styles.animationText}>{animationText}</Text>
           <Text style={styles.verificationSentText}>{verificationSentText}</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}
             onChangeText={setVerificationCode}
             value={verificationCode}
             placeholder="Enter Verification Code"
@@ -85,9 +85,9 @@ export default function ForgotPasswordScreen({ navigation }) {
       {showNewPasswordView && (
         <View style={styles.inputContainer}>
           <Text style={styles.label}>New Password:</Text>
-          <View style={styles.passwordContainer}>
+          <View style={[styles.passwordContainer, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}>
             <TextInput
-              style={styles.passwordInput}
+              style={[styles.passwordInput, { backgroundColor: '#F2F2F2' }]}
               onChangeText={setNewPassword}
               value={newPassword}
               placeholder="Enter new password"
@@ -98,9 +98,9 @@ export default function ForgotPasswordScreen({ navigation }) {
             </TouchableOpacity>
           </View>
           <Text style={styles.label}>Confirm Password:</Text>
-          <View style={styles.passwordContainer}>
+          <View style={[styles.passwordContainer, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}>
             <TextInput
-              style={styles.passwordInput}
+              style={[styles.passwordInput, { backgroundColor: '#F2F2F2' }]}
               onChangeText={setConfirmPassword}
               value={confirmPassword}
               placeholder="Confirm new password"
@@ -134,18 +134,16 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderWidth: 1,
-    borderColor: '#44B4F3',
-    borderRadius: 5,
+    backgroundColor: '#F2F2F2',
+    borderRadius: 10,
     paddingHorizontal: 10,
     marginBottom: 10,
   },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: '#44B4F3',
-    borderWidth: 1,
-    borderRadius: 5,
+    backgroundColor: '#F2F2F2',
+    borderRadius: 10,
     paddingHorizontal: 10,
     marginBottom: 10,
   },
@@ -161,7 +159,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 10,
     marginTop: 10,
   },
   resendButton: {

@@ -26,7 +26,7 @@ export default function SignupScreen({ navigation }) {
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Name:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}
           onChangeText={setName}
           value={name}
           placeholder="Enter your name"
@@ -35,7 +35,7 @@ export default function SignupScreen({ navigation }) {
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Number:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}
           onChangeText={setNumber}
           value={number}
           placeholder="Enter your number"
@@ -44,9 +44,9 @@ export default function SignupScreen({ navigation }) {
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Password:</Text>
-        <View style={styles.passwordContainer}>
+        <View style={[styles.passwordContainer, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}>
           <TextInput
-            style={styles.passwordInput}
+            style={[styles.passwordInput, { backgroundColor: '#F2F2F2' }]}
             onChangeText={setPassword}
             value={password}
             placeholder="Enter your password"
@@ -59,9 +59,9 @@ export default function SignupScreen({ navigation }) {
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Confirm Password:</Text>
-        <View style={styles.passwordContainer}>
+        <View style={[styles.passwordContainer, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}>
           <TextInput
-            style={styles.passwordInput}
+            style={[styles.passwordInput, { backgroundColor: '#F2F2F2' }]}
             onChangeText={setConfirmPassword}
             value={confirmPassword}
             placeholder="Confirm your password"
@@ -72,7 +72,7 @@ export default function SignupScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity onPress={handleSignup} style={styles.signupButton}>
+      <TouchableOpacity onPress={handleSignup} style={[styles.signupButton, { borderRadius: 10 }]}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
     </View>
@@ -97,17 +97,15 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 40,
-    borderWidth: 1,
-    borderColor: '#44B4F3', // Updated color to match LoginScreen
-    borderRadius: 5,
+    backgroundColor: '#F2F2F2',
+    borderRadius: 10,
     paddingHorizontal: 10,
   },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: '#44B4F3', // Updated color to match LoginScreen
-    borderWidth: 1,
-    borderRadius: 5,
+    backgroundColor: '#F2F2F2',
+    borderRadius: 10,
     paddingHorizontal: 10,
   },
   passwordInput: {
@@ -118,12 +116,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   signupButton: {
-    backgroundColor: '#005C99', // Updated color to match LoginScreen
+    backgroundColor: '#005C99',
     width: '100%',
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 10,
     marginTop: 10,
   },
   buttonText: {
