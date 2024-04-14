@@ -25,7 +25,7 @@ export default function LoginScreen({ navigation }) {
         <TextInput
           style={styles.input}
           onChangeText={setUsername}
-          value={email}
+          value={username}
           placeholder="Enter your username"
           keyboardType="username"
           autoCapitalize="none"
