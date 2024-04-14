@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 export default function ForgotPasswordScreen({ navigation }) {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
 
   const handleResetPassword = () => {
     // API here (Very important)
-    console.log('Reset password for email:', email);
+    console.log('Reset password for username:', username);
   };
 
   return (
@@ -14,10 +14,10 @@ export default function ForgotPasswordScreen({ navigation }) {
       <Text style={styles.title}>Forgot Password</Text>
       <TextInput
         style={styles.input}
-        onChangeText={setEmail}
-        value={email}
-        placeholder="Enter your email"
-        keyboardType="email-address"
+        onChangeText={setUsername}
+        value={username}
+        placeholder="Enter your username"
+        keyboardType="username"
         autoCapitalize="none"
       />
       <TouchableOpacity onPress={handleResetPassword} style={styles.resetButton}>
