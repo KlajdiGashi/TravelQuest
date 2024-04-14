@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
     // API here (Very important)
-    console.log('Username:', username);
-    console.log('Password:', password);
+
+    if(username.trim()=== 'admin' || password.trim() === 'password'){
+      navigation.navigate('MainView');
+    } else {
+      alert("Invalid username or password. Please try again.")
+    }
   };
 
   const handleSignup = () => {
@@ -27,19 +33,23 @@ export default function LoginScreen({ navigation }) {
           onChangeText={setUsername}
           value={username}
           placeholder="Enter your username"
-          keyboardType="username"
           autoCapitalize="none"
         />
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Password:</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Enter your password"
-          secureTextEntry
-        />
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Enter your password"
+            secureTextEntry={!showPassword}
+          />
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
+            <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="black" />
+          </TouchableOpacity>
+        </View>
       </View>
       <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
         <Text style={styles.buttonText}>Login</Text>
@@ -49,8 +59,8 @@ export default function LoginScreen({ navigation }) {
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleForgotPassword}>
-        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-      </TouchableOpacity>
+          <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -79,6 +89,21 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
   },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+  },
+  passwordInput: {
+    flex: 1,
+    height: 40,
+  },
+  eyeIcon: {
+    padding: 10,
+  },
   loginButton: {
     backgroundColor: 'blue',
     width: '100%',
@@ -103,4 +128,3 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
 });
-
