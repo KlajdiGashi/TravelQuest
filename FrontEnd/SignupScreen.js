@@ -1,10 +1,80 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function SignupScreen() {
+export default function SignupScreen({ navigation }) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleSignup = () => {
+    // Validate inputs and perform signup logic here
+    if (name.trim() === '' || number.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
+      alert('Please fill in all fields.');
+    } else if (password !== confirmPassword) {
+      alert('Passwords do not match. Please try again.');
+    } else {
+      // Signup successful, navigate to the next screen (e.g., HomeScreen)
+      navigation.navigate('Home');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Signup Screen</Text>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Name:</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={setName}
+          value={name}
+          placeholder="Enter your name"
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Number:</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={setNumber}
+          value={number}
+          placeholder="Enter your number"
+          keyboardType="phone-pad"
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Password:</Text>
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Enter your password"
+            secureTextEntry={!showPassword}
+          />
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
+            <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Confirm Password:</Text>
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            onChangeText={setConfirmPassword}
+            value={confirmPassword}
+            placeholder="Confirm your password"
+            secureTextEntry={!showPassword}
+          />
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
+            <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <TouchableOpacity onPress={handleSignup} style={styles.signupButton}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -15,5 +85,48 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  inputContainer: {
+    width: '100%',
+    marginBottom: 20,
+  },
+  label: {
+    marginBottom: 5,
+  },
+  input: {
+    width: '100%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+  },
+  passwordInput: {
+    flex: 1,
+    height: 40,
+  },
+  eyeIcon: {
+    padding: 10,
+  },
+  signupButton: {
+    backgroundColor: 'blue',
+    width: '100%',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#fff',
   },
 });

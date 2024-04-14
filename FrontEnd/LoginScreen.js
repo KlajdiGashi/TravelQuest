@@ -27,7 +27,7 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>username:</Text>
+        <Text style={styles.label}>Username:</Text>
         <TextInput
           style={styles.input}
           onChangeText={setUsername}
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   forgotPasswordText: {
-    color: 'blue',
+    color: 'blue',  
     textDecorationLine: 'underline',
   },
 });
