@@ -26,14 +26,14 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Logo Placeholder */}
+      <View style={styles.backgroundTop} />
       <View style={styles.logoContainer}>
         {/*  logo component  */}
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Username:</Text>
         <TextInput
-          style={[styles.input, { backgroundColor: '#F2F2F2' }]}
+          style={[styles.input, { backgroundColor: '#F5F5F5' }]}
           onChangeText={setUsername}
           value={username}
           placeholder="Enter your username"
@@ -42,15 +42,18 @@ export default function LoginScreen({ navigation }) {
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Password:</Text>
-        <View style={[styles.passwordContainer, { backgroundColor: '#F2F2F2' }]}>
+        <View style={[styles.passwordContainer, { backgroundColor: '#F5F5F5' }]}>
           <TextInput
-            style={[styles.passwordInput, { backgroundColor: '#F2F2F2' }]}
+            style={[styles.passwordInput, { backgroundColor: '#F5F5F5' }]}
             onChangeText={setPassword}
             value={password}
             placeholder="Enter your password"
             secureTextEntry={!showPassword}
           />
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
+          <TouchableOpacity
+            onPress={() => setShowPassword(!showPassword)}
+            style={styles.eyeIcon}
+          >
             <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="black" />
           </TouchableOpacity>
         </View>
@@ -73,10 +76,19 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5', 
+    backgroundColor: '#F5F5F5',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
+  },
+  backgroundTop: {
+    position: 'absolute',
+    top: -100,
+    left: -200,
+    right: -200,
+    bottom: '60%', 
+    backgroundColor: '#005C99', 
+    transform: [{ rotateZ:'-30deg' }],
   },
   logoContainer: {
     marginBottom: 20,
@@ -87,14 +99,22 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 5,
+    color: '#F5F5F5',
   },
   input: {
     width: '100%',
-    height: 50, 
-    borderRadius: 10, 
-    paddingHorizontal: 15, 
+    height: 50,
+    borderRadius: 10,
+    paddingHorizontal: 15,
     backgroundColor: 'white',
-    fontSize: 18, 
+    fontSize: 18,
+    shadowOffset:{
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity:0.25,
+    shadowRadius:3.84,  
+    elevation:5,
   },
   passwordContainer: {
     flexDirection: 'row',
@@ -102,14 +122,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 15,
     backgroundColor: 'white',
+    shadowOffset:{
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity:0.25,
+    shadowRadius:3.84,  
+    elevation:5,
   },
   passwordInput: {
     flex: 1,
     height: 50,
     fontSize: 18,
+    
   },
   eyeIcon: {
-    padding: 10,
+    position: 'absolute',
+    top: 14, 
+    right: 10,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -135,5 +165,6 @@ const styles = StyleSheet.create({
     color: '#005C99',
     textDecorationLine: 'underline',
     fontSize: 16,
+    
   },
 });
