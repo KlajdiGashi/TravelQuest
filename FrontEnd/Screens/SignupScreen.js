@@ -10,43 +10,69 @@ export default function SignupScreen({ navigation }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSignup = () => {
-    
     if (name.trim() === '' || number.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
       alert('Please fill in all fields.');
     } else if (password !== confirmPassword) {
       alert('Passwords do not match. Please try again.');
-    } else {
-      
+    } else if (!isPasswordValid(password) !== '') {
+      alert("Password must be at least 8 characters long and contain at least one uppercase letter and one number or special character.");
+
+    }  else {
       navigation.navigate('Home');
     }
   };
 
+  const handelFocus = () => { 
+    setNumber('+383');
+  };
+
+  const handleBlur = () => {  
+    if (number === '+383') {
+      setNumber('');
+    }
+  };
+
+  const isPasswordValid = (password) => { 
+    const UpperCaseRegex = /[A-Z]/;
+    const NumberRegex = /[0-9]/;
+    const characterRegex = /[!@#$%^&*]/;
+    return (
+    password.length >= 8 && 
+    UpperCaseRegex.test(password) && 
+    NumberRegex.test(password) || 
+    characterRegex.test(password)
+    );
+  };
+
   return (
     <View style={styles.container}>
+      <View style={styles.backgroundTop} />
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Name:</Text>
+        <Text style={[styles.label, {color:'#F5F5F5'}]}>Name:</Text>
         <TextInput
-          style={[styles.input, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}
+          style={[styles.input, { backgroundColor: '#F5F5F5', borderRadius: 10 }]}
           onChangeText={setName}
           value={name}
           placeholder="Enter your name"
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Number:</Text>
+        <Text style={[styles.label, {color:'#F5F5F5'}]}>Number:</Text>
         <TextInput
-          style={[styles.input, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}
+          style={[styles.input, { backgroundColor: '#F5F5F5', borderRadius: 10 }]}
           onChangeText={setNumber}
           value={number}
+          onFocus={handelFocus}
+          onBlur={handleBlur}
           placeholder="Enter your number"
           keyboardType="phone-pad"
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Password:</Text>
+        <Text style={[styles.label, {color:'#F5F5F5'}]}>Password:</Text>
         <View style={[styles.passwordContainer, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}>
-          <TextInput
-            style={[styles.passwordInput, { backgroundColor: '#F2F2F2' }]}
+          <TextInput  
+            style={[styles.passwordInput, { backgroundColor: '#F5F5F5' }]}
             onChangeText={setPassword}
             value={password}
             placeholder="Enter your password"
@@ -58,7 +84,7 @@ export default function SignupScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Confirm Password:</Text>
+        <Text style={[styles.label, {color:'#F5F5F5'}]}>Confirm Password:</Text>
         <View style={[styles.passwordContainer, { backgroundColor: '#F2F2F2', borderRadius: 10 }]}>
           <TextInput
             style={[styles.passwordInput, { backgroundColor: '#F2F2F2' }]}
@@ -86,6 +112,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
+  },
+  backgroundTop: {
+    position: 'absolute',
+    top: -100,
+    left: -200,
+    right: -200,
+    height:'50%',
+    backgroundColor: '#005C99',
+    transform: [{ rotateZ: '-30deg' }],
   },
   inputContainer: {
     width: '100%',
