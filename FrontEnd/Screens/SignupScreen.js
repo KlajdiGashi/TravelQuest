@@ -128,13 +128,22 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 5,
+    
   },
   input: {
     width: '100%',
-    height: 40,
+    height: 50,
     backgroundColor: '#F2F2F2',
     borderRadius: 10,
     paddingHorizontal: 10,
+    shadowOffset:{
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+   
   },
   passwordContainer: {
     flexDirection: 'row',
@@ -142,6 +151,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F2F2',
     borderRadius: 10,
     paddingHorizontal: 10,
+    shadowOffset:{
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity:0.25,
+    shadowRadius:3.84,
+    elevation:5,
   },
   passwordInput: {
     flex: 1,
