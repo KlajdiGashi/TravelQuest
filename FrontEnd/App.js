@@ -11,9 +11,15 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        <Stack.Screen name="Login" 
+        component={LoginScreen} 
+        options={{headerShown:false}}/>
+        <Stack.Screen name="Signup" 
+        component={SignupScreen}
+         />
+        <Stack.Screen 
+        name="ForgotPassword" 
+        component={ForgotPasswordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
