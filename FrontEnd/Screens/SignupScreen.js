@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function SignupScreen({ navigation }) {
@@ -14,7 +14,7 @@ export default function SignupScreen({ navigation }) {
       alert('Please fill in all fields.');
     } else if (password !== confirmPassword) {
       alert('Passwords do not match. Please try again.');
-    } else if (!isPasswordValid(password) !== '') {
+    } else if (!isPasswordValid(password)) {
       alert("Password must be at least 8 characters long and contain at least one uppercase letter and one number or special character.");
     } else {
       navigation.navigate('Home');
@@ -38,14 +38,12 @@ export default function SignupScreen({ navigation }) {
     return (
       password.length >= 8 &&
       UpperCaseRegex.test(password) &&
-      NumberRegex.test(password) ||
-      characterRegex.test(password)
+      (NumberRegex.test(password) || characterRegex.test(password))
     );
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.backgroundTop} />
+    <ImageBackground source={require('../BackgroundImage.png')} style={styles.container}>
       <View style={styles.inputContainer}>
         <Text style={[styles.label, { color: '#000000' }]}>Name:</Text>
         <TextInput
@@ -100,7 +98,7 @@ export default function SignupScreen({ navigation }) {
       <TouchableOpacity onPress={handleSignup} style={[styles.signupButton, { borderRadius: 10 }]}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -111,15 +109,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
-  },
-  backgroundTop: {
-    position: 'absolute',
-    top: -120,
-    left: -280,
-    right: -200,
-    bottom: '60%', 
-    backgroundColor: '#F5F5F5', 
-    transform: [{ rotateZ:'-30deg' }],
   },
   inputContainer: {
     width: '100%',
