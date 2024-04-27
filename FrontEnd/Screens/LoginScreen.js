@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity,Image} from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground,Image} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import LogoImage from '../Logo.png'
+import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -26,14 +26,13 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.backgroundTop} />
+    <ImageBackground source={require('../BackgroundImage.png')} style={styles.container}>
       <View style={styles.logoContainer}>
-      <Image
-      source={{ uri: 'https://marblism-dashboard-api--production-public.s3.us-west-1.amazonaws.com/ax6Rka-travelquest-JhBc' }}
-      style={{ width: 200, height: 100, borderRadius:10,bottom:60,shadowOffset:{width:0,height:2,},shadowOpacity:2,shadowRadius:4.84,elevation:5,}} 
-      resizeMode="contain" 
-      />
+        <Image
+          source={ require('../Logo.png')}
+          style={{ width: 200, height: 100, borderRadius: 10, bottom: 60, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 2, shadowRadius: 4.84, elevation: 5 }}
+          resizeMode="contain"
+        />
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Username:</Text>
@@ -74,7 +73,7 @@ export default function LoginScreen({ navigation }) {
           <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -85,15 +84,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
-  },
-  backgroundTop: {
-    position: 'absolute',
-    top: -500,
-    left: -280,
-    right: -200,
-    bottom: '60%', 
-    backgroundColor: '#F5F5F5', 
-    transform: [{ rotateZ:'-30deg' }],
   },
   logoContainer: {
     marginBottom: 20,
@@ -118,13 +108,13 @@ const styles = StyleSheet.create({
     shadowColor: '#000', // Dark shadow color
     shadowOffset: {
       width: 0,
-      height: 2, 
+      height: 2,
     },
     shadowOpacity: 2,
-    shadowRadius: 4.68, 
+    shadowRadius: 4.68,
     elevation: 5,
   },
-  
+
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -140,7 +130,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   loginButton: {
-    backgroundColor: '#005C99',
+    backgroundColor: '#F5F5F5',
     width: '100%',
     height: 50,
     justifyContent: 'center',
@@ -155,16 +145,16 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  
+
   passwordInput: {
     flex: 1,
     height: 50,
     fontSize: 18,
-    
+
   },
   eyeIcon: {
     position: 'absolute',
-    top: 13, 
+    top: 13,
     right: 10,
   },
   buttonContainer: {
@@ -178,25 +168,16 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontSize: 18,
   },
-  loginButton: {
-    backgroundColor: '#F5F5F5',
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    marginTop: 10,
-  },
   forgotPasswordText: {
     color: '#F5F5F5',
     textDecorationLine: 'underline',
     fontSize: 16,
-    
+
   },
   SignUpText: {
     color: '#F5F5F5',
     textDecorationLine: 'underline',
     fontSize: 16,
-    
+
   },
 });
