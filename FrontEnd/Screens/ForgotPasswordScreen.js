@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   input: {
-    height: 40,
+    height: 50,
     backgroundColor: '#F2F2F2',
     borderRadius: 10,
     paddingHorizontal: 10,
@@ -146,16 +146,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4.84,
     elevation: 5,
   },
-  backgroundTop: {
-    position: 'absolute',
-    top: -120,
-    left: -280,
-    right: -200,
-    bottom: '60%',
-    backgroundColor: '#F5F5F5',
-    transform: [{ rotateZ: '-30deg' }],
-  },
   passwordContainer: {
+    height:50,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F2F2F2',
@@ -180,7 +172,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#F5F5F5',
-    height: 40,
+    width: '100%',
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,

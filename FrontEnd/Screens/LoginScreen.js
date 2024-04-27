@@ -29,7 +29,7 @@ export default function LoginScreen({ navigation }) {
     <ImageBackground source={require('../BackgroundImage.png')} style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
-          source={ require('../Logo.png')}
+          source={ require('../Logo.png') }
           style={{ width: 200, height: 100, borderRadius: 10, bottom: 60, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 2, shadowRadius: 4.84, elevation: 5 }}
           resizeMode="contain"
         />
@@ -91,42 +91,43 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     marginBottom: 20,
-    borderRadius: 10,
-    overflow: 'hidden',
   },
   label: {
     marginBottom: 5,
-    color: '#000000',
   },
   input: {
     width: '100%',
     height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F2F2F2',
     borderRadius: 10,
-    paddingHorizontal: 15,
-    backgroundColor: '#FAFAFA',
-    fontSize: 18,
-    shadowColor: '#000', // Dark shadow color
+    paddingHorizontal: 10,
+    marginBottom: 10,
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 2,
-    shadowRadius: 4.68,
+    shadowRadius:4.84,
     elevation: 5,
   },
 
   passwordContainer: {
+    width: '100%',
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#F2F2F2',
     borderRadius: 10,
-    paddingHorizontal: 15,
-    backgroundColor: '#FAFAFA',
+    paddingHorizontal: 10,
+    marginBottom: 10,
     shadowOffset: {
-      width: 1,
-      height: 0,
+      width: 0,
+      height: 2,
     },
-    shadowOpacity: 0.50,
-    shadowRadius: 3.84,
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
     elevation: 5,
   },
   loginButton: {
@@ -137,20 +138,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     marginTop: 10,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
-
   passwordInput: {
     flex: 1,
-    height: 50,
-    fontSize: 18,
-
+    height: 50
   },
   eyeIcon: {
     position: 'absolute',
