@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Animated, Easing } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function ForgotPasswordScreen({ navigation }) {
@@ -49,8 +49,7 @@ export default function ForgotPasswordScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.backgroundTop} /> 
+    <ImageBackground source={require('../BackgroundImage.png')} style={styles.container}>
       {!showVerificationCodeView && !showNewPasswordView && (
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Enter your username:</Text>
@@ -116,7 +115,7 @@ export default function ForgotPasswordScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       )}
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -139,22 +138,22 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     marginBottom: 10,
-    shadowOffset:{
-      width:0,
-      height:2,
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    shadowOpacity:2,
-    shadowRadius:4.84, 
-    elevation:5,
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   backgroundTop: {
     position: 'absolute',
     top: -120,
     left: -280,
     right: -200,
-    bottom: '60%', 
-    backgroundColor: '#F5F5F5', 
-    transform: [{ rotateZ:'-30deg' }],
+    bottom: '60%',
+    backgroundColor: '#F5F5F5',
+    transform: [{ rotateZ: '-30deg' }],
   },
   passwordContainer: {
     flexDirection: 'row',
@@ -163,18 +162,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     marginBottom: 10,
-    shadowOffset:{
-      width:0,
-      height:2,
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    shadowOpacity:2,
-    shadowRadius:4.84, 
-    elevation:5,
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   passwordInput: {
     flex: 1,
     height: 40,
-    
+
   },
   eyeIcon: {
     padding: 10,
@@ -194,7 +193,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonText: {
-    color: '#000`000',
+    color: '#000000',
   },
   resendButtonText: {
     color: '#005C99',
