@@ -12,7 +12,7 @@ export default function LoginScreen({ navigation }) {
     // API here (Very important)
 
     if (username.trim() === 'admin' || password.trim() === 'password') {
-      navigation.navigate('MainView');
+      navigation.navigate('MainScreen');
     } else {
       alert('Invalid username or password. Please try again.');
     }
