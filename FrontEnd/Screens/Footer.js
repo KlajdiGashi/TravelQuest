@@ -1,72 +1,80 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { Linking } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native';
+import Footer from './Footer'; // Import the Footer component
 
-const Footer = () => {
-  const handleSocialMedia = (platform) => {
-    let url = '';
+const MainScreen = () => {
+    return (
+        <ImageBackground source={require('../BackgroundImage.png')} style={styles.container}>
+           
+            <View style={styles.Navbar}>
+                <Text style={styles.navbarText}>TravelQuest</Text>
+            </View>
 
-    switch (platform) {
-      case 'instagram':
-        url = 'https://www.instagram.com/instagram/';
-        break;
-      case 'facebook':
-        url = 'https://www.facebook.com/facebook/';
-        break;
+            
+            <View style={styles.TicketView}>
+                <Text style={styles.ticketText}>Tickets</Text>
+                <TouchableOpacity style={styles.ticketButton}>
+                    <Text style={styles.ticketButtonText}>Buy Ticket</Text>
+                </TouchableOpacity>
+            </View>
 
-      default:
-        break;
-    }
-
-    if (url !== '') {
-      Linking.openURL(url).catch((err) => console.error('Failed to open URL: ', err));
-    }
-  };
-
-  const handleCall = (phoneNumber) => {
-    phoneNumber = '+38345330890';
-    Linking.openURL(`tel:${phoneNumber}`);
-  };
-
-  const handleEmail = () => {
-    Linking.openURL('mailto:travelquestagency');
-  };
-
-  return (
-    <View style={styles.footer}>
-      <TouchableOpacity onPress={() => handleSocialMedia('instagram')} style={styles.footerIcon}>
-        <Ionicons name="logo-instagram" size={24} color="black" />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleSocialMedia('facebook')} style={styles.footerIcon}>
-        <Ionicons name="logo-facebook" size={24} color="black" />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleCall('+38345330890')} style={styles.footerIcon}>
-        <Ionicons name="call" size={24} color="black" />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleEmail()} style={styles.footerIcon}>
-        <Ionicons name="mail" size={24} color="black" />
-      </TouchableOpacity>
-    </View>
-  );
+            
+            <Footer /> {}
+        </ImageBackground>
+    );
 };
 
 const styles = StyleSheet.create({
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    width: '100%',
-    borderTopWidth: 1,
-    borderTopColor: '#ccc',
-    paddingVertical: 10,
-    position: 'absolute',
-    bottom: 0,
-    paddingBottom: 20,
-  },
-  footerIcon: {
-    padding: 10,
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#000000',
+        paddingHorizontal: 20,
+        justifyContent: 'center',
+    },
+    Navbar: {
+        width: '100%',
+        height: 70,
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+    },
+    navbarText: {
+        color: 'white',
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    TicketView: {
+        width: '100%',
+        height: 70,
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+    },
+    ticketText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    ticketButton: {
+        backgroundColor: '#007AFF',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+    },
+    ticketButtonText: {
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'center',
+    },
 });
 
-export default Footer;
+export default MainScreen;
