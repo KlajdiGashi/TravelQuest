@@ -13,6 +13,7 @@ export default function LoginScreen({ navigation }) {
 
     if (username.trim() === 'admin' || password.trim() === 'password') {
       navigation.navigate('MainScreen');
+      // Added only for testing to see if the navigation works properly 
     } else {
       alert('Invalid username or password. Please try again.');
     }

@@ -6,7 +6,7 @@ const MainScreen = () => {
         <ImageBackground source={require('../BackgroundImage.png')} style={styles.container}>
             {/* Navbar */}
             <View style={styles.Navbar}>
-                <Text style={styles.navbarText}>TravelQuest</Text>
+                <Text style={styles.navbarText}>TravelQuest</Text> 
             </View>
 
             {/* Ticket View will be added here */}

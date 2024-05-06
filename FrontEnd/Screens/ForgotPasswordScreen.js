@@ -36,6 +36,7 @@ export default function ForgotPasswordScreen({ navigation }) {
 
   const handleSendVerificationCode = () => {
     setShowVerificationCodeView(true);
+    // Its set like this only for UI purposes
   };
 
   const handleVerifyCode = () => {
