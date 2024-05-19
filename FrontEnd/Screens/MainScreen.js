@@ -9,7 +9,7 @@ import { createNativeStackNavigator, TransitionPresets } from '@react-navigation
 
 // Sample tickets data, you can replace this with your actual data source
 const tickets = [
-  { id: 1, location: 'New York', details: 'Details about New York' },
+  { id: 1, location: 'New York', details: 'Details about New York'},
   { id: 2, location: 'Paris', details: 'Details about Paris' },
   // Add more tickets as needed
 ];
@@ -53,9 +53,10 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 24,
-    color: 'white',
+    color: 'black',
     flex: 1,
     textAlign: 'left',
+    
   },
   profileIconContainer: {
     marginRight: 10,
