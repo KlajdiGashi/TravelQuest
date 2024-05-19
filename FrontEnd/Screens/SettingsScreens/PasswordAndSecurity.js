@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image ,ImageBackground} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Logo from '../../assets/Logo.png';
+import BackgroundImage from '../../assets/BackgroundImage.png';
 const PasswordAndSecurityScreen = () => {
   const navigation = useNavigation();
 
@@ -10,8 +11,8 @@ const PasswordAndSecurityScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-
+    <ImageBackground source={BackgroundImage} style={styles.container}>
+  
       <Text style={styles.header}>Password and Security</Text>
       <Text style={styles.header1}>Login & recovery</Text>
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('ChangePassword')}>
@@ -26,7 +27,7 @@ const PasswordAndSecurityScreen = () => {
         <Text style={styles.buttonText}>Two-Factor Authentication</Text>
         <Text style={styles.arrow}>></Text>
       </TouchableOpacity>
-      <Text style={styles.header1}>Security checks</Text>
+      <Text style={styles.header2}>Security checks</Text>
       <TouchableOpacity style={styles.button} >  
         <Text style={styles.buttonText}>Security Check</Text>
         <Text style={styles.arrow}>></Text>
@@ -36,15 +37,13 @@ const PasswordAndSecurityScreen = () => {
         <Text style={styles.arrow}>></Text>
       </TouchableOpacity>
 
-      
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
     paddingTop: 60, 
     paddingHorizontal: 20,
   },
@@ -56,15 +55,21 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 24,
-    color: 'white',
+    color: 'black',
     marginBottom: 15,
     marginTop:20,
   },
   header1: {
     fontSize: 20,
+    color: 'black',
+    marginBottom: 15,
+    marginTop:25,
+  },
+  header2:{
+    fontSize: 20,
     color: 'white',
     marginBottom: 15,
-    marginTop:10,
+    marginTop:40,
   },
   button: {
     flexDirection: 'row',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet ,ImageBackground} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackgroundImage from '../../assets/BackgroundImage.png';
 
 // Dummy user data 
 const userData = {
@@ -31,8 +32,7 @@ const PersonalDetailsScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Personal Details</Text>
+    <ImageBackground source={BackgroundImage} style={styles.container}> 
       <View style={styles.detailsContainer}>
         <Text style={styles.label}>Name:</Text>
         <Text style={styles.value}>{name}</Text>
@@ -52,7 +52,7 @@ const PersonalDetailsScreen = () => {
       <TouchableOpacity style={styles.editButton} onPress={handleEdit}>
         <Text style={styles.editButtonText}>Edit Details</Text>
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -67,30 +67,39 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'white',
     marginBottom: 20,
-  },
-  detailsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
+    textAlign: 'center',
   },
   label: {
     color: 'white',
     fontSize: 18,
-    fontWeight: 'bold',
+  },
+  detailsContainer: {
+    backgroundColor: '#1e1e1e',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
   },
   value: {
     color: 'white',
     fontSize: 18,
+    marginTop: 5,
   },
   editButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: 'white',
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
     alignItems: 'center',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   editButtonText: {
-    color: 'white',
+    color: 'black',
     fontSize: 18,
   },
 });

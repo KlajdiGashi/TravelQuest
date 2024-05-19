@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, StyleSheet, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackgroundImage from '../../assets/BackgroundImage.png';
 
-
-  const PaymentMethodScreen = () => {
+const PaymentMethodScreen = () => {
   const navigation = useNavigation();
   const [paymentMethods, setPaymentMethods] = useState([
     { id: '1', type: 'Credit Card', last4Digits: '1234' },
@@ -19,27 +19,31 @@ import { useNavigation } from '@react-navigation/native';
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Payment Methods</Text>
-      <FlatList
-        data={paymentMethods}
-        renderItem={renderPaymentMethod}
-        keyExtractor={(item) => item.id}
-        style={styles.paymentMethodList}
-      />
-      <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddPayment')}>
-        <Text style={styles.buttonText}>Add Payment Method</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground source={BackgroundImage} style={styles.container}>
+        <FlatList
+          data={paymentMethods}
+          renderItem={renderPaymentMethod}
+          keyExtractor={(item) => item.id}
+          style={styles.paymentMethodList}
+        />
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => navigation.navigate('AddPayment')}
+        >
+          <Text style={styles.buttonText}>Add Payment Method</Text>
+        </TouchableOpacity>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
     paddingHorizontal: 20,
     paddingTop: 40,
+  },
+  innerContainer: {
+    flex: 1,
   },
   header: {
     fontSize: 24,
@@ -49,7 +53,6 @@ const styles = StyleSheet.create({
   },
   paymentMethodList: {
     flex: 1,
-    width: '100%',
   },
   paymentMethodItem: {
     flexDirection: 'row',
@@ -66,13 +69,22 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   addButton: {
-    backgroundColor: '#4CAF50',
+    marginBottom:490,
+    backgroundColor: 'white',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   buttonText: {
-    color: 'white',
+    color: 'black',
     fontSize: 18,
   },
 });

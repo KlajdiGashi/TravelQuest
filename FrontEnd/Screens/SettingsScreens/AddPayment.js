@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackgroundImage from '../../assets/BackgroundImage.png';
 
 const AddPaymentScreen = () => {
   const navigation = useNavigation();
@@ -8,65 +9,86 @@ const AddPaymentScreen = () => {
   const [cardNumber, setCardNumber] = useState('');
 
   const handleAddPayment = () => {
-    // Implement your logic to add the payment method to the database
-    // This is just a placeholder, you should replace it with actual logic
     console.log('Adding payment method:', paymentType, cardNumber);
     // After adding, navigate back to the PaymentMethodScreen
     navigation.goBack();
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Add Payment Method</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Payment Type (e.g., Credit Card, PayPal)"
-        value={paymentType}
-        onChangeText={setPaymentType}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Card Number"
-        value={cardNumber}
-        onChangeText={setCardNumber}
-        keyboardType="numeric"
-      />
-      <TouchableOpacity style={styles.addButton} onPress={handleAddPayment}>
-        <Text style={styles.buttonText}>Add Payment Method</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground source={BackgroundImage} style={styles.container}>
+      <View style={styles.contentContainer}>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Payment Type:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Credit Card, PayPal, etc."
+            value={paymentType}
+            onChangeText={setPaymentType}
+            placeholderTextColor="#aaa"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Card Number:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter card number"
+            value={cardNumber}
+            onChangeText={setCardNumber}
+            keyboardType="numeric"
+            placeholderTextColor="#aaa"
+          />
+        </View>
+        <TouchableOpacity style={styles.addButton} onPress={handleAddPayment}>
+          <Text style={styles.buttonText}>Add Payment Method</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
     paddingHorizontal: 20,
     paddingTop: 40,
+    justifyContent: 'center',
   },
-  header: {
-    fontSize: 24,
-    color: 'white',
+  contentContainer: {
+    flex: 1,
+  },
+  inputContainer: {
     marginBottom: 20,
-    alignSelf: 'center',
+  },
+  label: {
+    color: 'black',
+    fontSize: 18,
+    marginBottom: 5,
   },
   input: {
-    backgroundColor: '#1e1e1e',
-    color: 'white',
-    fontSize: 18,
-    padding: 15,
+    width: '100%',
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F5F5F5',
     borderRadius: 10,
-    marginBottom: 20,
+    paddingHorizontal: 10,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   addButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: 'white',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   buttonText: {
-    color: 'white',
+    color: 'black',
     fontSize: 18,
   },
 });

@@ -1,12 +1,16 @@
 // ChangePasswordScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons'; // Added for consistency with the LoginScreen
 import Logo from '../../assets/Logo.png';
+import BackgroundImage from '../../assets/BackgroundImage.png';
 
 const ChangePasswordScreen = () => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
   const navigation = useNavigation();
 
   const handleChangePassword = () => {
@@ -15,93 +19,90 @@ const ChangePasswordScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.navbar}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Text style={styles.backButtonText}>Back</Text>
-        </TouchableOpacity>
+    <ImageBackground source={BackgroundImage} style={styles.container}>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Current Password:</Text>
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Enter current password"
+            placeholderTextColor="#aaa"
+            secureTextEntry={!showPassword}
+          />
+        </View>
       </View>
-      <Image
-        source={Logo}
-        style={styles.logo}
-        resizeMode="contain"
-      />
-      <Text style={styles.header}>Change Password</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setPassword}
-        value={password}
-        placeholder="Current Password"
-        secureTextEntry
-        placeholderTextColor="#aaa"
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={setNewPassword}
-        value={newPassword}
-        placeholder="New Password"
-        secureTextEntry
-        placeholderTextColor="#aaa"
-      />
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>New Password:</Text>
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            onChangeText={setNewPassword}
+            value={newPassword}
+            placeholder="Enter new password"
+            placeholderTextColor="#aaa"
+            secureTextEntry={!showNewPassword}
+          />
+        </View>
+      </View>
       <TouchableOpacity style={styles.button} onPress={handleChangePassword}>
         <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
-    paddingTop: 60, // Adjust padding as needed
+    paddingTop: 60,
     paddingHorizontal: 20,
+    backgroundColor: '#121212',
   },
-  navbar: {
-    position: 'absolute',
-    top: 0,
+  inputContainer: {
+    width: '100%',
+    marginBottom: 20,
+  },
+  label: {
+    color: 'black',
+    marginBottom: 5,
+  },
+  passwordContainer: {
     width: '100%',
     height: 50,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingHorizontal: 10,
-  },
-  backButton: {
-    padding: 10,
-  },
-  backButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  logo: {
-    width: '100%',
-    height: 100,
-    marginBottom: 20,
-    alignSelf: 'center',
-  },
-  header: {
-    fontSize: 24,
-    color: 'white',
-    marginBottom: 20,
-  },
-  input: {
-    backgroundColor: '#1e1e1e',
-    color: 'white',
+    backgroundColor: '#F5F5F5',
     borderRadius: 10,
-    padding: 15,
-    marginBottom: 10,
+    paddingHorizontal: 10,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
+  },
+  passwordInput: {
+    flex: 1,
+    height: 50,
   },
   button: {
-    backgroundColor: '#007AFF',
-    padding: 15,
-    borderRadius: 10,
+    backgroundColor: '#F5F5F5',
+    width: '100%',
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 10,
+    marginTop: 10,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   buttonText: {
-    color: 'white',
+    color: '#000000',
     fontSize: 18,
   },
 });

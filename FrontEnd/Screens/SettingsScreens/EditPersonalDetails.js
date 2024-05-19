@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, ImageBackground } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import BackgroundImage from '../../assets/BackgroundImage.png';
 
 const EditPersonalDetailsScreen = () => {
   const navigation = useNavigation();
@@ -23,67 +24,97 @@ const EditPersonalDetailsScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Edit Personal Details</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Number (optional)"
-        value={number}
-        onChangeText={setNumber}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Birthday"
-        value={birthday}
-        onChangeText={setBirthday}
-      />
+    <ImageBackground source={BackgroundImage} style={styles.container}>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Name:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          placeholderTextColor="#aaa"
+          value={name}
+          onChangeText={setName}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Email:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#aaa"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Number:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Number (optional)"
+          placeholderTextColor="#aaa"
+          value={number}
+          onChangeText={setNumber}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Birthday:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Birthday"
+          placeholderTextColor="#aaa"
+          value={birthday}
+          onChangeText={setBirthday}
+        />
+      </View>
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
-    paddingHorizontal: 20,
     paddingTop: 60,
+    paddingHorizontal: 20,
+    backgroundColor: '#121212',
   },
-  header: {
-    fontSize: 24,
-    color: 'white',
+  inputContainer: {
+    width: '100%',
     marginBottom: 20,
   },
+  label: {
+    color: 'black',
+    marginBottom: 5,
+  },
   input: {
-    backgroundColor: '#1e1e1e',
-    padding: 15,
+    backgroundColor: '#F5F5F5',
+    color: 'black',
     borderRadius: 10,
-    marginBottom: 10,
-    color: 'white',
+    padding: 15,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   saveButton: {
-    backgroundColor: '#4CAF50',
-    padding: 15,
+    backgroundColor: 'white',
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
     marginTop: 20,
-    alignItems: 'center',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   saveButtonText: {
-    color: 'white',
+    color: 'black',
     fontSize: 18,
   },
 });
