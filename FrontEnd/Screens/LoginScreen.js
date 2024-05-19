@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
     shadowRadius:4.84,
     elevation: 5,
   },
-
   passwordContainer: {
     width: '100%',
     height: 50,

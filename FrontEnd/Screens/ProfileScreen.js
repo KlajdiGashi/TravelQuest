@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image ,ImageBackground} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import shieldIcon from '../assets/shield.png';
 import resumeIcon from '../assets/resume.png';
 import creditCardIcon from '../assets/credit-card.png';
 import Logo from '../assets/Logo.png';
 import Document from '../assets/Document.png';
+import BackgroundImage from '../assets/BackgroundImage.png';
 
 const SettingsScreen = () => {
   const navigation = useNavigation();
@@ -15,12 +16,12 @@ const SettingsScreen = () => {
   };
 
   const handleLogout = () => {
-    // Clear user session or someting?.
+    // Clear user session or something?.
     navigation.navigate('Login');
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={BackgroundImage} style={styles.container}>
       <Image
         source={Logo}
         style={styles.logo}
@@ -50,14 +51,13 @@ const SettingsScreen = () => {
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <Text style={styles.logoutButtonText}>Log out</Text>
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
     paddingTop: 60,
     paddingHorizontal: 20,
   },
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 24,
-    color: 'white',
+    color: 'black',
     marginBottom: 20,
   },
   button: {

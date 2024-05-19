@@ -5,6 +5,7 @@ import LoginScreen from './Screens/LoginScreen';
 import SignupScreen from './Screens/SignupScreen';
 import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
 import MainScreen from './Screens/MainScreen';
+import TicketDetail from './Screens/TicketDetail';
 import ProfileScreen from './Screens/ProfileScreen';
 import PasswordAndSecurityScreen from './Screens/SettingsScreens/PasswordAndSecurity';
 import ChangePasswordScreen from './Screens/SettingsScreens/ChangePasswordScreen';
@@ -35,47 +36,52 @@ export default function App() {
         <Stack.Screen 
           name="MainScreen" 
           component={MainScreen} 
-          options={{headerShown:false}} 
+          options={{headerShown:false,title:"Main Page"}} 
+        />
+       <Stack.Screen 
+          name="TicketDetail"
+          component={TicketDetail}
+          options={{headerShown:false}}
         />
         <Stack.Screen 
           name="ProfileScreen" 
           component={ProfileScreen} 
-          options={{headerShown:false}} 
+          options={{headerShown:true,title:"Profile"}} 
         />
         <Stack.Screen 
           name="PasswordAndSecurity" 
           component={PasswordAndSecurityScreen} 
-          options={{headerShown:false}}
+          options={{headerShown:true,title:""}}
         />
         <Stack.Screen 
           name="ChangePassword" 
           component={ChangePasswordScreen}
-          options={{headerShown:false}} 
+          options={{headerShown:true,title:"Change Password"}} 
         />
         <Stack.Screen 
           name="ChangeEmail" 
           component={ChangeEmailScreen}
-          options={{headerShown:false}}
+          options={{headerShown:true,title:"Change Email"}}
         />
         <Stack.Screen 
           name="PersonalDetails" 
           component={PersonalDetailsScreen}
-          options={{headerShown:false}}   
+          options={{headerShown:true,title:"Details"}}   
         />
         <Stack.Screen 
           name="EditPersonalDetails" 
           component={EditPersonalDetailsScreen}
-          options={{headerShown:false}}
+          options={{headerShown:true,title:"Edit Personal Details"}}
         />
         <Stack.Screen 
           name="PaymentMethod" 
           component={PaymentMethodScreen}
-          options={{headerShown:false}}
+          options={{headerShown:true,title:""}}
         />
         <Stack.Screen 
           name="AddPayment" 
           component={AddPaymentScreen}
-          options={{headerShown:false}}
+          options={{headerShown:true,title:"Add Payment"}}
         />
 
       </Stack.Navigator>
