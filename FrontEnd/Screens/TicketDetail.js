@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { SharedElement } from 'react-navigation-shared-element';
 import BackgroundImage from '../assets/BackgroundImage.png';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const TicketDetail = ({ route }) => {
   const { ticket } = route.params;
@@ -18,6 +19,7 @@ const TicketDetail = ({ route }) => {
         <Text style={styles.title}>{ticket.location}</Text>
       </SharedElement>
       <Text style={styles.details}>{ticket.details}</Text>
+    
     </View>
    
   );

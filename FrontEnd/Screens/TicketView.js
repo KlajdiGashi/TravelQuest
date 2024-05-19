@@ -59,15 +59,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   fullViewButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: 'white',
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 5,
     alignSelf: 'flex-end',
   },
   fullViewButtonText: {
-    color: 'white',
-    fontSize: 14,
+    color: 'black',
+    fontSize: 25,
   },
 });
 
