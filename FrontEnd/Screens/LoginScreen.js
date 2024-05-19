@@ -27,10 +27,10 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <ImageBackground source={require('../BackgroundImage.png')} style={styles.container}>
+    <ImageBackground source={require('../assets/BackgroundImage.png')} style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
-          source={ require('../Logo.png') }
+          source={ require('../assets/Logo.png') }
           style={{ width: 200, height: 100, borderRadius: 10, bottom: 60, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 2, shadowRadius: 4.84, elevation: 5 }}
           resizeMode="contain"
         />

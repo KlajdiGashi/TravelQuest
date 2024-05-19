@@ -50,7 +50,7 @@ export default function ForgotPasswordScreen({ navigation }) {
   };
 
   return (
-    <ImageBackground source={require('../BackgroundImage.png')} style={styles.container}>
+    <ImageBackground source={require('../assets/BackgroundImage.png')} style={styles.container}>
       {!showVerificationCodeView && !showNewPasswordView && (
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Enter your username:</Text>

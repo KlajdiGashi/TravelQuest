@@ -43,7 +43,7 @@ export default function SignupScreen({ navigation }) {
   };
 
   return (
-    <ImageBackground source={require('../BackgroundImage.png')} style={styles.container}>
+    <ImageBackground source={require('../assets/BackgroundImage.png')} style={styles.container}>
       <View style={styles.inputContainer}>
         <Text style={[styles.label, { color: '#000000' }]}>Name:</Text>
         <TextInput
