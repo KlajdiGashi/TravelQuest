@@ -32,10 +32,17 @@ const styles = StyleSheet.create({
   ticketContainer: {
     flexDirection: 'row',
     marginBottom: 20,
-    borderRadius: 10,
+    borderRadius: 15,
     overflow: 'hidden',
-    height: 150,
+    height: 190,
     backgroundColor: '#1e1e1e',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   ticketImagePlaceholder: {
     width: '80%',

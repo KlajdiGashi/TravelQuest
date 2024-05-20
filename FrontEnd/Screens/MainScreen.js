@@ -7,11 +7,10 @@ import Profile from '../assets/profile.png';
 import Animated, { Easing } from 'react-native-reanimated';
 import { createNativeStackNavigator, TransitionPresets } from '@react-navigation/native-stack';
 
-// Sample tickets data, you can replace this with your actual data source
+// Sample tickets data
 const tickets = [
-  { id: 1, location: 'New York', details: 'Details about New York'},
-  { id: 2, location: 'Paris', details: 'Details about Paris' },
-  // Add more tickets as needed
+  { id: 1, location: 'New York', details: 'Details about New York', imageUrl: 'https://source.unsplash.com/random/200x200?ticket' },
+  { id: 2, location: 'Paris', details: 'Details about Paris', imageUrl: 'https://source.unsplash.com/random/200x200?concert' },
 ];
 
 const MainScreen = () => {
@@ -24,10 +23,12 @@ const MainScreen = () => {
   return (
     <ImageBackground source={BackgroundImage} style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>Available Tickets</Text>
-        <TouchableOpacity style={styles.profileIconContainer} onPress={handleProfilePress}>
-          <Image source={Profile} style={styles.profileIcon} />
-        </TouchableOpacity>
+        <ImageBackground style={styles.headerBackground}>
+          <Text style={styles.header}>Available Tickets</Text>
+          <TouchableOpacity style={styles.profileIconContainer} onPress={handleProfilePress}>
+            <Image source={Profile} style={styles.profileIcon} />
+          </TouchableOpacity>
+        </ImageBackground>
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {tickets.map(ticket => (
@@ -47,19 +48,33 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
+  },
+  headerBackground: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F4F4F5',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 2,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
   header: {
     fontSize: 24,
     color: 'black',
     flex: 1,
     textAlign: 'left',
-    
   },
   profileIconContainer: {
-    marginRight: 10,
+    marginLeft: 10,
   },
   profileIcon: {
     width: 40,

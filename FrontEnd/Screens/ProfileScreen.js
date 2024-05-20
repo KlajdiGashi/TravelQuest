@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image ,ImageBackground} from 
 import { useNavigation } from '@react-navigation/native';
 import shieldIcon from '../assets/shield.png';
 import resumeIcon from '../assets/resume.png';
-import creditCardIcon from '../assets/credit-card.png';
+import wallet from '../assets/wallet.png';
 import Logo from '../assets/Logo.png';
 import Document from '../assets/Document.png';
 import BackgroundImage from '../assets/BackgroundImage.png';
@@ -30,7 +30,7 @@ const SettingsScreen = () => {
       <Text style={styles.header}>Account Settings</Text>
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('PasswordAndSecurity')}>
         <Image source={shieldIcon} style={styles.icon} />
-        <Text style={styles.buttonText}>Password and Security</Text>
+        <Text style={styles.buttonText}>Pgitassword and Security</Text>
         <Text style={styles.arrow}>></Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('PersonalDetails')}>
@@ -39,7 +39,7 @@ const SettingsScreen = () => {
         <Text style={styles.arrow}>></Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('PaymentMethod')}>
-        <Image source={creditCardIcon} style={styles.icon} />
+        <Image source={wallet} style={styles.icon} />
         <Text style={styles.buttonText}>Travel Payment</Text>
         <Text style={styles.arrow}>></Text>
       </TouchableOpacity>

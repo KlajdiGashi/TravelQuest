@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#444',
     marginBottom: 20,
-    marginTop:50,
+    marginTop:10,
+    borderRadius:19
   },
   placeholderText: {
     color: 'white',
@@ -56,10 +57,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'black',
     marginBottom: 20,
+    marginTop:10
   },
   details: {
     fontSize: 16,
     color: 'black',
+    
   },
 });
 
