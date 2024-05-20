@@ -6,6 +6,7 @@ import SignupScreen from './Screens/SignupScreen';
 import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
 import MainScreen from './Screens/MainScreen';
 import TicketDetail from './Screens/TicketDetail';
+import TicketView from './Screens/TicketView';
 import ProfileScreen from './Screens/ProfileScreen';
 import PasswordAndSecurityScreen from './Screens/SettingsScreens/PasswordAndSecurity';
 import ChangePasswordScreen from './Screens/SettingsScreens/ChangePasswordScreen';
@@ -41,7 +42,12 @@ export default function App() {
        <Stack.Screen 
           name="TicketDetail"
           component={TicketDetail}
-          options={{headerShown:false}}
+          options={{headerShown:true,title:"Ticket Detail"}}
+        />
+       <Stack.Screen
+          name="TicketView"
+          component={TicketView}
+          options={{headerShown:true,title:"Ticket View"}}
         />
         <Stack.Screen 
           name="ProfileScreen" 
