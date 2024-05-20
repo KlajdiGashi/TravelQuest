@@ -1,95 +1,96 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import ForgotPasswordScreen from './ForgotPassword';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './Screens/LoginScreen';
+import SignupScreen from './Screens/SignupScreen';
+import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
+import MainScreen from './Screens/MainScreen';
+import TicketDetail from './Screens/TicketDetail';
+import TicketView from './Screens/TicketView';
+import ProfileScreen from './Screens/ProfileScreen';
+import PasswordAndSecurityScreen from './Screens/SettingsScreens/PasswordAndSecurity';
+import ChangePasswordScreen from './Screens/SettingsScreens/ChangePasswordScreen';
+import ChangeEmailScreen from './Screens/SettingsScreens/ChangeEmailScreen';
+import PersonalDetailsScreen from './Screens/SettingsScreens/PersonalDetails';
+import EditPersonalDetailsScreen from './Screens/SettingsScreens/EditPersonalDetails';
+import PaymentMethodScreen from './Screens/SettingsScreens/PaymentMethod';
+import AddPaymentScreen from './Screens/SettingsScreens/AddPayment';
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = () => {
-    // API here (Very important)
-    console.log('Email:', email);
-    console.log('Password:', password);
-    
-    // navigation.navigate('ForgotPassword'); // Remove this line
-    console.log('Navigating to Forgot Password screen');
-  };
-
   return (
-    <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Email:</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={setEmail}
-          value={email}
-          placeholder="Enter your email"
-          keyboardType="email-address"
-          autoCapitalize="none"
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{headerShown:false}} 
         />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Password:</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Enter your password"
-          secureTextEntry
+        <Stack.Screen 
+          name="Signup" 
+          component={SignupScreen} 
         />
-      </View>
-      <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => console.log('Forgot password clicked')} style={styles.forgotPassword}>
-        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-      </TouchableOpacity>
-    </View>
+        <Stack.Screen 
+          name="ForgotPassword" 
+          component={ForgotPasswordScreen} 
+        />
+        <Stack.Screen 
+          name="MainScreen" 
+          component={MainScreen} 
+          options={{headerShown:false,title:"Main Page"}} 
+        />
+       <Stack.Screen 
+          name="TicketDetail"
+          component={TicketDetail}
+          options={{headerShown:true,title:"Ticket Detail"}}
+        />
+       <Stack.Screen
+          name="TicketView"
+          component={TicketView}
+          options={{headerShown:true,title:"Ticket View"}}
+        />
+        <Stack.Screen 
+          name="ProfileScreen" 
+          component={ProfileScreen} 
+          options={{headerShown:true,title:"Profile"}} 
+        />
+        <Stack.Screen 
+          name="PasswordAndSecurity" 
+          component={PasswordAndSecurityScreen} 
+          options={{headerShown:true,title:""}}
+        />
+        <Stack.Screen 
+          name="ChangePassword" 
+          component={ChangePasswordScreen}
+          options={{headerShown:true,title:"Change Password"}} 
+        />
+        <Stack.Screen 
+          name="ChangeEmail" 
+          component={ChangeEmailScreen}
+          options={{headerShown:true,title:"Change Email"}}
+        />
+        <Stack.Screen 
+          name="PersonalDetails" 
+          component={PersonalDetailsScreen}
+          options={{headerShown:true,title:"Details"}}   
+        />
+        <Stack.Screen 
+          name="EditPersonalDetails" 
+          component={EditPersonalDetailsScreen}
+          options={{headerShown:true,title:"Edit Personal Details"}}
+        />
+        <Stack.Screen 
+          name="PaymentMethod" 
+          component={PaymentMethodScreen}
+          options={{headerShown:true,title:""}}
+        />
+        <Stack.Screen 
+          name="AddPayment" 
+          component={AddPaymentScreen}
+          options={{headerShown:true,title:"Add Payment"}}
+        />
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-  },
-  inputContainer: {
-    width: '100%',
-    marginBottom: 20,
-  },
-  label: {
-    marginBottom: 5,
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-  },
-  loginButton: {
-    backgroundColor: 'blue',
-    width: '100%',
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  forgotPassword: {
-    alignSelf: 'flex-end',
-    marginTop: 10,
-  },
-  forgotPasswordText: {
-    color: 'blue',
-    textDecorationLine: 'underline',
-  },
-});
