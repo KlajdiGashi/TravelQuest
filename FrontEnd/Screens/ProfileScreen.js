@@ -31,22 +31,22 @@ const SettingsScreen = () => {
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('PasswordAndSecurity')}>
         <Image source={shieldIcon} style={styles.icon} />
         <Text style={styles.buttonText}>Pgitassword and Security</Text>
-        <Text style={styles.arrow}>></Text>
+        <Text style={styles.arrow}></Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('PersonalDetails')}>
         <Image source={resumeIcon} style={styles.icon} />
         <Text style={styles.buttonText}>Personal Details</Text>
-        <Text style={styles.arrow}>></Text>
+        <Text style={styles.arrow}></Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('PaymentMethod')}>
         <Image source={wallet} style={styles.icon} />
         <Text style={styles.buttonText}>Travel Payment</Text>
-        <Text style={styles.arrow}>></Text>
+        <Text style={styles.arrow}></Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} >
         <Image source={Document} style={styles.icon} />
         <Text style={styles.buttonText}>Your Information and Permissions</Text>
-        <Text style={styles.arrow}>></Text>
+        <Text style={styles.arrow}></Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <Text style={styles.logoutButtonText}>Log out</Text>
