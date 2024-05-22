@@ -14,7 +14,19 @@ class User(models.Model):
     role = models.CharField(max_length=50) 
 
     def save(self, *args, **kwargs):
-        if not self.id:  # If this is a new user
+        if not self.id: 
             self.salt = self.generate_salt()
             self.upass = self.hash_password(self.upass)
         super(User, self).save(*args, **kwargs)
+
+    def generate_salt(self):
+        return os.urandom(16).hex()
+
+    def hash_password(self, password):
+        return hashlib.sha256((password + self.salt).encode('utf-8')).hexdigest()
+
+    def check_password(self, password):
+        return self.upass == hashlib.sha256((password + self.salt).encode('utf-8')).hexdigest()
+
+    def __str__(self):
+        return self.uname
