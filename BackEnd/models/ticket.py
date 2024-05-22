@@ -13,5 +13,5 @@ class Ticket(models.Model):
     type = models.CharField(max_length=50)  # e.g., 'economy', 'business', etc.
     tseat = models.CharField(max_length=10)  # e.g., '12A', '14C', etc.
 
-   def str(self):
-        return f"{self.tfrom} to {self.tend} on {self.startTime}
+    def __str__(self):
+        return f"{self.tfrom} to {self.tend} on {self.startTime}"
