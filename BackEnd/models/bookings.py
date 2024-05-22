@@ -8,3 +8,6 @@ class Booking(models.Model):
     guid = models.ForeignKey(User, on_delete=models.CASCADE)
     tvendorid = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     seat = models.CharField(max_length=10) 
+
+    def __str__(self):
+        return f"Booking {self.bid} for User {self.guid} with Vendor {self.tvendorid}"
