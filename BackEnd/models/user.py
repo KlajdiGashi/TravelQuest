@@ -14,7 +14,7 @@ class User(models.Model):
     role = models.CharField(max_length=50) 
 
     def save(self, *args, **kwargs):
-        if not self.id:  
+        if not self.id:  # If this is a new user
             self.salt = self.generate_salt()
             self.upass = self.hash_password(self.upass)
         super(User, self).save(*args, **kwargs)
