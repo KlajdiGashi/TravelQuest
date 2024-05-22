@@ -12,3 +12,6 @@ class Ticket(models.Model):
     tvendorid = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     type = models.CharField(max_length=50)  # e.g., 'economy', 'business', etc.
     tseat = models.CharField(max_length=10)  # e.g., '12A', '14C', etc.
+
+   def str(self):
+        return f"{self.tfrom} to {self.tend} on {self.startTime}
