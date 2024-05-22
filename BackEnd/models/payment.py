@@ -8,5 +8,5 @@ class Payment(models.Model):
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 
- def str(self):
+    def str(self):
         return f"Payment {self.paymentid} for Booking {self.booking} with Type {self.paymentType}"
