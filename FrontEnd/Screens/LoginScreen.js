@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground,Image} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import WaitScreen from './WaitScreen';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = () => {
     // API here (Very important)
@@ -16,6 +18,7 @@ export default function LoginScreen({ navigation }) {
       // Added only for testing to see if the navigation works properly 
     } else {
       alert('Invalid username or password. Please try again.');
+      setIsLoading(false);
     }
   };
 
@@ -28,6 +31,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <ImageBackground source={require('../assets/BackgroundImage.png')} style={styles.container}>
+      <WaitScreen isLoading={isLoading} />{/* Render WaitScreen conditionally */}
       <View style={styles.logoContainer}>
         <Image
           source={ require('../assets/Logo.png') }
