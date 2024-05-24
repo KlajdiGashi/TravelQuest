@@ -20,7 +20,7 @@ const TicketView = ({ ticket, navigation }) => {
             <Text style={styles.ticketText}>{ticket.location}</Text>
           </SharedElement>
           <TouchableOpacity style={styles.fullViewButton} onPress={handlePress}>
-            <Text style={styles.fullViewButtonText}> > </Text>
+            <Text style={styles.fullViewButtonText}>  </Text>
           </TouchableOpacity>
         </View>
       </View>
