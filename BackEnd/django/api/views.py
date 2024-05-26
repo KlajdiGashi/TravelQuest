@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK
 from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer, VendorSerializer,TransactionSerializer
-from .models import Ticket, User, Vendor, Transaction
+from .models import Ticket, User, Vendor, Transaction, Payment
 
 @api_view(['POST', 'GET'])
 def user(request):
