@@ -39,3 +39,4 @@ FrontEnd/*.tsbuildinfo
 BackEnd/venv
 BackEnd/test.py
 BackEnd/requirements.txt
+BackEnd/django/travelquest/__pycache__

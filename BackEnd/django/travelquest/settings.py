@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'travelquest.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
+        'NAME': 'TravelQuest',
+        'USER': 'admin',
+        'PASSWORD': 'travelquest123',
         'HOST': 'localhost',
         'PORT': '5432',
     }
