@@ -1,8 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from PIL import Image  # Make sure Pillow is installed
+
 # models under here
 # py ./BackEnd/django/manage.py makemigrations api
 # py ./BackEnd/django/manage.py migrate
+# py ./BackEnd/django/manage.py runserver 8000 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
         if not username:
@@ -55,7 +58,6 @@ class Vendor(models.Model):
         return self.vendor_name
 
 class Ticket(models.Model):
-    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     from_location = models.CharField(max_length=128)
     to_location = models.CharField(max_length=128)
     start_time = models.DateTimeField()
@@ -63,6 +65,8 @@ class Ticket(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     type = models.CharField(max_length=50)
     seat = models.CharField(max_length=10)
+    vendor_id = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='ticket_images/', null=True, blank=True)  # New image field
 
     def __str__(self):
         return f'Ticket from {self.from_location} to {self.to_location} - {self.seat}'

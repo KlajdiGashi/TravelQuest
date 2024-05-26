@@ -15,10 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import re_path
 from api import views
 
 urlpatterns = [
-    re_path('users', views.users),
-    re_path('test_token', views.test_token)
+    re_path('api/user', views.user, name='user'),
+    re_path('api/test_token', views.test_token, name='test_token'),
+    re_path('api/vendor', views.vendor, name='vendor'),
+    re_path('api/ticket', views.ticket, name='ticket'),
 ]
+
+
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

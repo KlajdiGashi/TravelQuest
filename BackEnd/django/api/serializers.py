@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from .models import User, Payment, Booking, Transaction, Ticket, Vendor
 from rest_framework.validators import UniqueValidator
+from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.hashers import check_password
 
 
 class PaymentSerializer(serializers.ModelSerializer):
@@ -10,42 +12,56 @@ class PaymentSerializer(serializers.ModelSerializer):
         fields = ['id', 'type', 'details']
 
 
+from rest_framework import serializers
+from .models import User, Payment
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ['id', 'type', 'details']
+
 class RegisterSerializer(serializers.ModelSerializer):
-    payments = PaymentSerializer(many=True, read_only=True)
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ['_id', 'username', 'fullname', 'number', 'role', 'location', 'payments']
+        fields = ['username', 'fullname', 'number', 'role', 'location', 'password', 'confirm_password']
 
+    def validate(self, attrs):
+        if attrs['password'] != attrs['confirm_password']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
 
-class LoginSerializer(serializers.ModelSerializer):
-    payments = PaymentSerializer(many=True, read_only=True)
+        return attrs
 
-    class Meta:
-        model = User
-        fields = ['username', 'fullname', 'number', 'role', 'location', 'payments']
-        extra_kwargs = {
-            'password': {'write_only': True},
-        }
+    def create(self, validated_data):
+        validated_data.pop('confirm_password')
+        user = User.objects.create_user(**validated_data)
+        return user
 
-    def validate(self, data):
-        username = data.get('username')
-        password = data.get('password')
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(style={'input_type': 'password'}, trim_whitespace=False)
 
-        if not username:
-            raise serializers.ValidationError('Username is required')
+    def validate(self, attrs):
+        username = attrs.get('username')
+        password = attrs.get('password')
 
-        user = User.objects.filter(username=username).first()
-        if not user:
-            raise serializers.ValidationError('User not found')
-
-        if not password:
-            raise serializers.ValidationError('Password is required')
-
-        if not user.check_password(password):
-            raise serializers.ValidationError('Incorrect password')
-
-        return data
+        if username and password:
+            user = User.objects.filter(username=username).first()
+            if user:
+                if check_password(password, user.password):
+                    attrs['user'] = user
+                    return attrs
+                else:
+                    msg = 'Unable to log in with provided credentials.'
+                    raise serializers.ValidationError(msg, code='authorization')
+            else:
+                msg = 'User with this username does not exist.'
+                raise serializers.ValidationError(msg, code='authorization')
+        else:
+            msg = 'Must include "username" and "password".'
+            raise serializers.ValidationError(msg, code='authorization')
 
 class UserSerializer(serializers.ModelSerializer):
     payments = PaymentSerializer(many=True, read_only=True)
@@ -60,12 +76,11 @@ class VendorSerializer(serializers.ModelSerializer):
         fields = ['id', 'vendor_name']
 
 class TicketSerializer(serializers.ModelSerializer):
-    vendor = VendorSerializer(read_only=True)
+    vendor_id = serializers.PrimaryKeyRelatedField(queryset=Vendor.objects.all())
 
     class Meta:
         model = Ticket
-        fields = ['id', 'vendor', 'from_location', 'to_location', 'start_time', 'end_time', 'price', 'type', 'seat']
-
+        fields = ['id', 'from_location', 'to_location', 'start_time', 'end_time', 'price', 'type', 'seat', 'vendor_id', 'image']
 class BookingSerializer(serializers.ModelSerializer):
     ticket = TicketSerializer(read_only=True)
 
