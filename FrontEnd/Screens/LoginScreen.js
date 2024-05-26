@@ -28,10 +28,12 @@ export default function LoginScreen({ navigation }) {
   const handleForgotPassword = () => {
     navigation.navigate('ForgotPassword');
   };
+  const handleWait = () => {
+    navigation.navigate('WaitScreen');
+  };
 
   return (
     <ImageBackground source={require('../assets/BackgroundImage.png')} style={styles.container}>
-      <WaitScreen isLoading={isLoading} />{/* Render WaitScreen conditionally */}
       <View style={styles.logoContainer}>
         <Image
           source={ require('../assets/Logo.png') }
@@ -67,7 +69,7 @@ export default function LoginScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+      <TouchableOpacity onPress={handleWait} style={styles.loginButton}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <View style={styles.buttonContainer}>

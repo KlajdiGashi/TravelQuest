@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const WaitScreen = () => {
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigation.navigate('MainScreen');
+        }, 1500);
+
+        return () => clearTimeout(timer);
+    }, [navigation]);
+
     return (
         <View style={styles.container}>
             <Text style={styles.message}>Please wait while we're logging you in...</Text>
