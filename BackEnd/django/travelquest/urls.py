@@ -25,6 +25,7 @@ urlpatterns = [
     re_path('api/test_token', views.test_token, name='test_token'),
     re_path('api/vendor', views.vendor, name='vendor'),
     re_path('api/ticket', views.ticket, name='ticket'),
+    re_path('api/transaction', views.transaction, name='transaction'),
 ]
 
 

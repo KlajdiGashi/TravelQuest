@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK
-from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer, VendorSerializer
-from .models import Ticket, User, Vendor
+from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer, VendorSerializer,TransactionSerializer
+from .models import Ticket, User, Vendor, Transaction
 
 @api_view(['POST', 'GET'])
 def user(request):
@@ -75,6 +75,30 @@ def vendor(request, vendor_id=None):
     
     elif request.method == 'POST':
         serializer = VendorSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['GET', 'POST'])
+def transaction(request):
+    if request.method == 'GET':
+        transaction_id = request.query_params.get('id')
+        if transaction_id:
+            try:
+                transaction = Transaction.objects.get(id=transaction_id)
+                serializer = TransactionSerializer(transaction)
+                return Response(serializer.data, status=HTTP_200_OK)
+            except Transaction.DoesNotExist:
+                return Response({"error": "Transaction not found."}, status=HTTP_400_BAD_REQUEST)
+        else:
+            transactions = Transaction.objects.all()
+            serializer = TransactionSerializer(transactions, many=True)
+            return Response(serializer.data, status=HTTP_200_OK)
+    
+    elif request.method == 'POST':
+        serializer = TransactionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
