@@ -35,7 +35,7 @@ def user(request):
 def test_token(request):
     return Response({})
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def ticket(request):
     if request.method == 'GET':
         ticket_id = request.query_params.get('id')
@@ -45,18 +45,41 @@ def ticket(request):
                 serializer = TicketSerializer(ticket)
                 return Response(serializer.data, status=HTTP_200_OK)
             except Ticket.DoesNotExist:
-                return Response({"error": "Ticket not found."}, status=HTTP_400_BAD_REQUEST)
+                return Response({"error": "Ticket not found."}, status=HTTP_404_NOT_FOUND)
         else:
             tickets = Ticket.objects.all()
             serializer = TicketSerializer(tickets, many=True)
             return Response(serializer.data, status=HTTP_200_OK)
-    
+   
     elif request.method == 'POST':
         serializer = TicketSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+   
+    elif request.method == 'PUT':
+        ticket_id = request.query_params.get('id')
+        try:
+            ticket = Ticket.objects.get(id=ticket_id)
+        except Ticket.DoesNotExist:
+            return Response({"error": "Ticket not found."}, status=HTTP_404_NOT_FOUND)
+
+        serializer = TicketSerializer(ticket, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_200_OK)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+   
+    elif request.method == 'DELETE':
+        ticket_id = request.query_params.get('id')
+        try:
+            ticket = Ticket.objects.get(id=ticket_id)
+        except Ticket.DoesNotExist:
+            return Response({"error": "Ticket not found."}, status=HTTP_404_NOT_FOUND)
+
+        ticket.delete()
+        return Response( {'message': 'Ticket deleted successfully.'}, status=HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST'])
 def vendor(request, vendor_id=None):
