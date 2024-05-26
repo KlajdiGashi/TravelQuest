@@ -14,4 +14,4 @@ class Ticket(models.Model):
     image = models.ForeignKey(upload_to='ticket_images', null=True, blank=True)
 
     def __str__(self):
-        return f"{self.tfrom} to {self.tend} on {self.startTime}"
+        return f"{self.from_location} to {self.to_location} on {self.seat}"
