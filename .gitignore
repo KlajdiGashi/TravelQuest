@@ -39,3 +39,4 @@ FrontEnd/*.tsbuildinfo
 BackEnd/venv
 BackEnd/test.py
 BackEnd/requirements.txt
+BackEnd/django/api/__pycache__
