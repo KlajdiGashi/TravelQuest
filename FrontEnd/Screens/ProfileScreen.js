@@ -30,7 +30,7 @@ const SettingsScreen = () => {
       <Text style={styles.header}>Account Settings</Text>
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('PasswordAndSecurity')}>
         <Image source={shieldIcon} style={styles.icon} />
-        <Text style={styles.buttonText}>Pgitassword and Security</Text>
+        <Text style={styles.buttonText}>Password and Security</Text>
         <Text style={styles.arrow}></Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('PersonalDetails')}>
