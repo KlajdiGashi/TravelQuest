@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK
-from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer, VendorSerializer,TransactionSerializer
+from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer, VendorSerializer,TransactionSerializer, PaymentSerializer
 from .models import Ticket, User, Vendor, Transaction, Payment
 
 @api_view(['POST', 'GET'])
@@ -126,3 +127,30 @@ def transaction(request):
             serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+def payment(request):
+    if request.method == 'GET':
+        payment_id = request.query_params.get('id')
+        if payment_id:
+            try:
+                payment = Payment.objects.get(id=payment_id)
+                serializer = PaymentSerializer(payment)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except Payment.DoesNotExist:
+                return Response({"error": "Payment not found."}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            payments = Payment.objects.all()
+            serializer = PaymentSerializer(payments, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    elif request.method == 'POST':
+        user_id = request.data.get('user_id')
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        data = request.data.copy()
+        data['user'] = user.id
+
