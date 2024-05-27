@@ -3,12 +3,12 @@ POST http://localhost:8000/api/user
 Content-Type: application/json
 
 {
-    "username": "John1",
+    "username": "John212",
     "password": "1234asdF!",
     "confirm_password": "1234asdF!",
     "fullname": "Test Test",
     "number": "+38344000000",
-    "email": "test@gmail.com",
+    "email": "tes22t@gmail.com"
 }
 
 ###

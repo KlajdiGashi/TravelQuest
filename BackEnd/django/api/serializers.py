@@ -23,15 +23,19 @@ class PaymentSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True, required=True)
-    
+
     class Meta:
         model = User
-        fields = ['username', 'fullname', 'email', 'password', 'confirm_password', 'guid']
-        read_only_fields = ('guid',)
+        fields = ['username', 'fullname', 'number', 'role', 'email', 'password', 'confirm_password']
 
     def validate(self, attrs):
         if attrs['password'] != attrs['confirm_password']:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
+
+        email = attrs.get('email')
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError({"email": "This email address is already in use."})
+
         return attrs
 
     def create(self, validated_data):

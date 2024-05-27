@@ -25,9 +25,9 @@ def user(request):
                 'fullname': user.fullname,
                 'number': user.number,
                 'role': user.role,
-                'guid': user.guid
+                'guid': str(user.guid)
             }
-            return Response(json.dumps(user_data), status=HTTP_200_OK)
+            return Response(user_data, status=HTTP_200_OK)
         
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     elif request.method == 'PUT':
