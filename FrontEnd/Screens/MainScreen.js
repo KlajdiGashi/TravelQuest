@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../assets/BackgroundImage.png';
 import TicketView from './TicketView';
 import Profile from '../assets/profile.png';
+import { UserContext } from '../UserContext';
 import Animated, { Easing } from 'react-native-reanimated';
 import { createNativeStackNavigator, TransitionPresets } from '@react-navigation/native-stack';
 
@@ -15,6 +16,7 @@ const tickets = [
 
 const MainScreen = () => {
   const navigation = useNavigation();
+  const {user_data} = useContext(UserContext);
 
   const handleProfilePress = () => {
     navigation.navigate('ProfileScreen');

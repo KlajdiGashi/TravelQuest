@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, ImageBackground } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import BackgroundImage from '../../assets/BackgroundImage.png';
+import { UserContext } from '../UserContext';
 
 const EditPersonalDetailsScreen = () => {
   const navigation = useNavigation();

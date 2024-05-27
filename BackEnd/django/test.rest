@@ -15,6 +15,28 @@ Content-Type: application/json
 GET http://localhost:8000/api/user?username=test123&password=Password123!
 Content-Type: application/json
 ###
+PUT http://localhost:8000/api/user
+Content-Type: application/json
+
+{
+    "guid": "caabe8c9-c8cd-45ab-a10c-41fa49212837",
+    "username": "UpdatedName",
+    "number": "+38349123456",
+    "role": "admin",
+    "email": "updatedemail@example.com",
+    "password": "NewPassword123!",
+    "confirm_password": "NewPassword123!"
+}
+### update using only password
+PUT http://localhost:8000/api/user
+Content-Type: application/json
+
+{
+    "guid": "caabe8c9-c8cd-45ab-a10c-41fa49212837",
+    "password": "NewPassword1234!",
+    "confirm_password": "NewPassword1234!"
+}
+###
 POST http://localhost:8000/api/ticket
 Content-Type: application/json
 

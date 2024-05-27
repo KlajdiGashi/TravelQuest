@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet ,ImageBackground} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../../assets/BackgroundImage.png';
+import { UserContext } from '../UserContext';
 
 // Dummy user data 
 const userData = {
@@ -17,6 +18,7 @@ const PersonalDetailsScreen = () => {
   const [email, setEmail] = useState('');
   const [number, setNumber] = useState('');
   const [birthday, setBirthday] = useState('');
+  const {user_data} = useContext(UserContext)
 
   // Fetch user data when the component mounts
   useEffect(() => {

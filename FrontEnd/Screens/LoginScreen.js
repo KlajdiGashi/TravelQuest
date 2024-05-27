@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { UserContext } from '../UserContext';
 import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const { setUser } = useContext(UserContext);
   
   const loginUser = async (username, password) => {
     try {
@@ -34,6 +36,7 @@ export default function LoginScreen({ navigation }) {
       let data = await loginUser(username.trim(), password.trim());
       console.log(data);
       if (data.guid) { // or check another field to confirm successful login
+        setUser(data)
         alert('Login successful!');
         navigation.navigate('MainScreen', { userData: data });
       } else {

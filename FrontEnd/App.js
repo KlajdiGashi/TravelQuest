@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { UserProvider } from './UserContext';
 import LoginScreen from './Screens/LoginScreen';
 import SignupScreen from './Screens/SignupScreen';
 import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
@@ -19,7 +20,8 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <UserProvider>
+      <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
           name="Login" 
@@ -92,5 +94,6 @@ export default function App() {
 
       </Stack.Navigator>
     </NavigationContainer>
+    </UserProvider>
   );
 }

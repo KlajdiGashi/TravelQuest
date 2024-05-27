@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Logo from '../../assets/Logo.png';
 import BackgroundImage from '../../assets/BackgroundImage.png';
+import { UserContext } from '../UserContext';
 
 const ChangePasswordScreen = () => {
   const [password, setPassword] = useState('');
@@ -11,17 +12,20 @@ const ChangePasswordScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const navigation = useNavigation();
+  const {user_data} = useContext(UserContext)
 
   const handleChangePassword = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/change_password', {
-        method: 'POST',
+      const response = await fetch('http://127.0.0.1:8000/user', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          guid: user_data.guid,
           old_password: password,
-          new_password: newPassword,
+          password: newPassword,
+          confirm_password: newPassword,
         }),
       });
       const data = await response.json();

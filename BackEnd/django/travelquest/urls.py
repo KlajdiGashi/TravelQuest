@@ -29,7 +29,7 @@ urlpatterns = [
     re_path('api/booking',views.booking,name='booking'),
     re_path('api/payment', views.payment, name='payment'),
     #re_path('api/payment/(?P<pk>[0-9]+)', views.payment_detail, name='payment_detail'),
-    re_path('api/change_password', views.change_password, name='change_password'),
+    #re_path('api/change_password', views.change_password, name='change_password'),
     ]
 
 
