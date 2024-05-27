@@ -177,3 +177,17 @@ def payment(request):
                 return Response({"message": "Payment deleted successfully."}, status=status.HTTP_200_OK)
             except Exception as e:
                 return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+@api_view(['GET', 'POST'])
+def vendor(request, vendor_id=None):
+    if request.method == 'GET':
+        if vendor_id:
+            try:
+                vendor = Vendor.objects.get(id=vendor_id)
+                serializer = VendorSerializer(vendor)
+                return Response(serializer.data)
+            except Vendor.DoesNotExist:
+                return Response({"error": "Vendor not found."}, status=HTTP_400_BAD_REQUEST)
+        else:
+            vendors = Vendor.objects.all()
+            serializer = VendorSerializer(vendors, many=True)
+            return Response(serializer.data)
