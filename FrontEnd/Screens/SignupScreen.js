@@ -5,12 +5,11 @@ import { Ionicons } from '@expo/vector-icons';
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
-  const [number, setNumber] = useState('');
-  const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const registerUser = async (user_data) => {
     try {
@@ -30,7 +29,7 @@ export default function SignupScreen({ navigation }) {
   };
 
   const handleSignup = async () => {
-    if (name.trim() === '' || number.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
+    if (name.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
       alert('Please fill in all fields.');
     } else if (password !== confirmPassword) {
       alert('Passwords do not match. Please try again.');
@@ -40,8 +39,6 @@ export default function SignupScreen({ navigation }) {
       const user_data = {
         username: username,
         fullname: name,
-        number: number,
-        role: role, // assuming you have a state or prop for role
         email: email,
         password: password,
         confirm_password: confirmPassword,
@@ -49,26 +46,16 @@ export default function SignupScreen({ navigation }) {
       
       try {
         let data = await registerUser(user_data);
-        print(data)
+        console.log(data);
         if (data.guid) { // or check another field to confirm successful registration
           alert('Signup successful!');
-          navigation.navigate('Home');
+          navigation.navigate('MainScreen');
         } else {
           alert('Signup failed: ' + JSON.stringify(data));
         }
       } catch (error) {
         alert(error.message);
       }
-    }
-  };
-
-  const handelFocus = () => {
-    setNumber('+383');
-  };
-
-  const handleBlur = () => {
-    if (number === '+383') {
-      setNumber('');
     }
   };
 
@@ -104,27 +91,6 @@ export default function SignupScreen({ navigation }) {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: '#000000' }]}>Number:</Text>
-        <TextInput
-          style={[styles.input, { backgroundColor: '#F5F5F5', borderRadius: 10 }]}
-          onChangeText={setNumber}
-          value={number}
-          onFocus={handelFocus}
-          onBlur={handleBlur}
-          placeholder="Enter your number"
-          keyboardType="phone-pad"
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: '#000000' }]}>Role:</Text>
-        <TextInput
-          style={[styles.input, { backgroundColor: '#F5F5F5', borderRadius: 10 }]}
-          onChangeText={setRole}
-          value={role}
-          placeholder="Enter your role"
-        />
-      </View>
-      <View style={styles.inputContainer}>
         <Text style={[styles.label, { color: '#000000' }]}>Email:</Text>
         <TextInput
           style={[styles.input, { backgroundColor: '#F5F5F5', borderRadius: 10 }]}
@@ -149,17 +115,17 @@ export default function SignupScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: '#F5F5F5' }]}>Confirm Password:</Text>
+        <Text style={[styles.label, { color: '#000000' }]}>Confirm Password:</Text>
         <View style={[styles.passwordContainer, { backgroundColor: '#F5F5F5', borderRadius: 10 }]}>
           <TextInput
             style={[styles.passwordInput, { backgroundColor: '#F5F5F5' }]}
             onChangeText={setConfirmPassword}
             value={confirmPassword}
             placeholder="Confirm your password"
-            secureTextEntry={!showPassword}
+            secureTextEntry={!showConfirmPassword}
           />
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
-            <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="black" />
+          <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)} style={styles.eyeIcon}>
+            <Ionicons name={showConfirmPassword ? 'eye-off' : 'eye'} size={24} color="black" />
           </TouchableOpacity>
         </View>
       </View>
@@ -187,7 +153,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    height: 25,
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F2F2F2',
@@ -203,7 +169,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   passwordContainer: {
-    height:25,
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F2F2F2',
