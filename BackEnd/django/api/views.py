@@ -191,3 +191,10 @@ def vendor(request, vendor_id=None):
             vendors = Vendor.objects.all()
             serializer = VendorSerializer(vendors, many=True)
             return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = VendorSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
