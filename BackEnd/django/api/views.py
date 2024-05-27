@@ -109,7 +109,7 @@ def ticket(request):
         ticket.delete()
         return Response( {'message': 'Ticket deleted successfully.'}, status=HTTP_204_NO_CONTENT)
     
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def booking(request):
     if request.method == 'GET':
         bookings = Booking.objects.all()
@@ -120,8 +120,31 @@ def booking(request):
         serializer = BookingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=HTTP_201_CREATED)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'PUT':
+        booking_id = request.data.get('id')
+        try:
+            booking = Booking.objects.get(id=booking_id)
+        except Booking.DoesNotExist:
+            return Response({'error': 'Booking not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = BookingSerializer(booking, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        booking_id = request.data.get('id')
+        try:
+            booking = Booking.objects.get(id=booking_id)
+        except Booking.DoesNotExist:
+            return Response({'error': 'Booking not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        booking.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST'])
 def vendor(request, vendor_id=None):
