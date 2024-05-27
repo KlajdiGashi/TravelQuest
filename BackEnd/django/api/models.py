@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from PIL import Image  # Make sure Pillow is installed
+import uuid
 
 # models under here
 # py ./BackEnd/django/manage.py makemigrations api
@@ -21,19 +22,19 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(username, password, **extra_fields)
 
 class User(AbstractBaseUser):
-    _id = models.AutoField(primary_key=True, editable=False)
-    username = models.CharField(max_length=24, unique=True)
-    fullname = models.CharField(max_length=128)
-    number = models.CharField(max_length=128)
-    role = models.CharField(max_length=24)
-    location = models.CharField(max_length=128)
+    guid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    fullname = models.CharField(max_length=255)
+    username = models.CharField(max_length=150, unique=True)
+    password = models.CharField(max_length=255)  
+    email = models.EmailField(default='test@gmail.com')
+    number = models.CharField(max_length=15) 
+    role = models.CharField(max_length=50, default = 'customer')
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['fullname', 'number', 'role', 'location']
+    REQUIRED_FIELDS = ['fullname', 'number', 'role']
 
     def __str__(self):
         return self.fullname

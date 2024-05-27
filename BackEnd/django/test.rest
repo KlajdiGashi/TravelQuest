@@ -3,14 +3,14 @@ POST http://localhost:8000/api/user
 Content-Type: application/json
 
 {
-    "username": "test123",
-    "password": "Password123!",
-    "confirm_password": "Password123!",
+    "username": "John1",
+    "password": "1234asdF!",
+    "confirm_password": "1234asdF!",
     "fullname": "Test Test",
     "number": "+38344000000",
-    "role": "customer",
-    "location": "Prishtina"
+    "email": "test@gmail.com",
 }
+
 ###
 GET http://localhost:8000/api/user?username=test123&password=Password123!
 Content-Type: application/json

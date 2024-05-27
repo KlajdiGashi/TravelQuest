@@ -23,15 +23,15 @@ class PaymentSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True, required=True)
-
+    
     class Meta:
         model = User
-        fields = ['username', 'fullname', 'number', 'role', 'location', 'password', 'confirm_password']
+        fields = ['username', 'fullname', 'number', 'email', 'password', 'confirm_password', 'guid']
+        read_only_fields = ('guid',)
 
     def validate(self, attrs):
         if attrs['password'] != attrs['confirm_password']:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
-
         return attrs
 
     def create(self, validated_data):
@@ -68,7 +68,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['_id', 'username', 'fullname', 'number', 'role', 'location', 'payments']
+        fields = ['guid', 'username', 'fullname', 'number', 'role', 'payments']
 
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:

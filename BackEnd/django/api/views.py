@@ -2,11 +2,12 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK
+from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_204_NO_CONTENT
 from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer, VendorSerializer,TransactionSerializer, PaymentSerializer
 from .models import Ticket, User, Vendor, Transaction, Payment
+import json
 
-@api_view(['POST', 'GET'])
+@api_view(['POST', 'GET', 'PUT', 'DELETE'])
 def user(request):
     if request.method == 'POST': # register
         serializer = RegisterSerializer(data=request.data)
@@ -24,17 +25,34 @@ def user(request):
                 'fullname': user.fullname,
                 'number': user.number,
                 'role': user.role,
-                'location': user.location,
+                'guid': user.guid
             }
-            return Response(user_data, status=HTTP_200_OK)
+            return Response(json.dumps(user_data), status=HTTP_200_OK)
         
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    elif request.method == 'PUT':
+        user_id = request.query_params.get('id')
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({"error": "User not found."}, status=HTTP_404_NOT_FOUND)
+
+        serializer = RegisterSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_200_OK)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        user_id = request.query_params.get('id')
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({"error": "User not found."}, status=HTTP_404_NOT_FOUND)
+
+        user.delete()
+        return Response( {'message': 'User deleted successfully.'}, status=HTTP_204_NO_CONTENT)
     
     return Response({'error': 'Invalid request method'}, status=HTTP_400_BAD_REQUEST)
-
-@api_view(['POST'])
-def test_token(request):
-    return Response({})
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def ticket(request):

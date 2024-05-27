@@ -22,12 +22,12 @@ from api import views
 
 urlpatterns = [
     re_path('api/user', views.user, name='user'),
-    re_path('api/test_token', views.test_token, name='test_token'),
+    #re_path('api/test_token', views.test_token, name='test_token'),
     re_path('api/vendor', views.vendor, name='vendor'),
     re_path('api/ticket', views.ticket, name='ticket'),
     re_path('api/transaction', views.transaction, name='transaction'),
     re_path('api/payment', views.payment, name='payment'),
-    re_path('api/payment/(?P<pk>[0-9]+)', views.payment_detail, name='payment_detail'),
+    #re_path('api/payment/(?P<pk>[0-9]+)', views.payment_detail, name='payment_detail'),
 ]
 
 
