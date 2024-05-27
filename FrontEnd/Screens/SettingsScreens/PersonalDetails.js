@@ -18,7 +18,6 @@ const PersonalDetailsScreen = () => {
   const [email, setEmail] = useState('');
   const [number, setNumber] = useState('');
   const [birthday, setBirthday] = useState('');
-  const {user_data} = useContext(UserContext)
 
   // Fetch user data when the component mounts
   useEffect(() => {

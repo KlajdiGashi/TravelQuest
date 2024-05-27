@@ -7,11 +7,9 @@ import wallet from '../assets/wallet.png';
 import Logo from '../assets/Logo.png';
 import Document from '../assets/Document.png';
 import BackgroundImage from '../assets/BackgroundImage.png';
-import { UserContext } from '../UserContext';
 
 const SettingsScreen = () => {
   const navigation = useNavigation();
-  const {user_data} = useContext(UserContext)
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);

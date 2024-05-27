@@ -3,20 +3,27 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_204_NO_CONTENT
 from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer,BookingSerializer, VendorSerializer,TransactionSerializer, PaymentSerializer, ChangePasswordSerializer
 from .models import Ticket,Booking, User, Vendor, Transaction, Payment
-import json
+from django.contrib.auth import SESSION_KEY
+import json, uuid
+
+def get_user_session_uuid(request):
+    session_key = request.session.get(SESSION_KEY)
+    if session_key:
+        return session_key
+    return None
 
 @api_view(['POST', 'GET', 'PUT', 'DELETE'])
 def user(request):
     if request.method == 'POST': # register
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
+         serializer = RegisterSerializer(data=request.data)
+         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-    
+         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     elif request.method == 'GET': # login
         serializer = LoginSerializer(data=request.query_params)
         if serializer.is_valid():
@@ -32,7 +39,7 @@ def user(request):
         
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     elif request.method == 'PUT':
-        user_id = request.data.get('guid')
+        user_id = request.session.get('guid')
         try:
             print(user_id)
             user = User.objects.get(guid=user_id)

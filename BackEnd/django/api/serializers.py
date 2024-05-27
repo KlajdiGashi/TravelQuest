@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import User, Payment, Booking, Transaction, Ticket, Vendor
 from rest_framework.validators import UniqueValidator
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.hashers import make_password

@@ -59,6 +59,7 @@ class Vendor(models.Model):
         return self.vendor_name
 
 class Ticket(models.Model):
+    #ticket_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     from_location = models.CharField(max_length=128)
     to_location = models.CharField(max_length=128)
     start_time = models.DateTimeField()

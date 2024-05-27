@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Logo from '../../assets/Logo.png';
 import BackgroundImage from '../../assets/BackgroundImage.png';
-import { UserContext } from '../UserContext';
 
 const ChangePasswordScreen = () => {
   const [password, setPassword] = useState('');
@@ -12,7 +11,6 @@ const ChangePasswordScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const navigation = useNavigation();
-  const {user_data} = useContext(UserContext)
 
   const handleChangePassword = async () => {
     try {

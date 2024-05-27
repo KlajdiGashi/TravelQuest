@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../../assets/BackgroundImage.png';
-import { UserContext } from '../UserContext';
 
 const AddPaymentScreen = () => {
   const navigation = useNavigation();

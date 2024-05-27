@@ -3,10 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image ,ImageBackground} from 
 import { useNavigation } from '@react-navigation/native';
 import Logo from '../../assets/Logo.png';
 import BackgroundImage from '../../assets/BackgroundImage.png';
-import { UserContext } from '../UserContext';
 const PasswordAndSecurityScreen = () => {
   const navigation = useNavigation();
-  const {user_data} = useContext(UserContext);
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);

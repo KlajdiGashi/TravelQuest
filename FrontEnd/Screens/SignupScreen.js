@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { storeUserData, getUserData, clearUserData } from './UserDataStorage';
+
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -49,6 +51,8 @@ export default function SignupScreen({ navigation }) {
         console.log(data);
         if (data.guid) { // or check another field to confirm successful registration
           alert('Signup successful!');
+          clearUserData();
+          storeUserData(data);
           navigation.navigate('MainScreen');
         } else {
           alert('Signup failed: ' + JSON.stringify(data));

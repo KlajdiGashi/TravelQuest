@@ -5,13 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'; // Added for consistency
 import Logo from '../../assets/Logo.png';
 import BackgroundImage from '../../assets/BackgroundImage.png';
-import { UserContext } from '../UserContext';
 
 const ChangeEmailScreen = () => {
   const [email, setEmail] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const navigation = useNavigation();
-  const {user_data} = useContext(UserContext)
 
   const handleChangeEmail = () => {
     // Logic to handle email change

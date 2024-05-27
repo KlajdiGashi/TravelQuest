@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../../assets/BackgroundImage.png';
-import { UserContext } from '../UserContext';
 
 const PaymentMethodScreen = () => {
   const navigation = useNavigation();
@@ -11,7 +10,7 @@ const PaymentMethodScreen = () => {
     { id: '2', type: 'Debit Card', last4Digits: '5678' },
     { id: '3', type: 'PayPal', last4Digits: '8765' },
   ]);
-  const {user_data} = useContext(UserContext)
+
 
   const renderPaymentMethod = ({ item }) => (
     <TouchableOpacity style={styles.paymentMethodItem}>
