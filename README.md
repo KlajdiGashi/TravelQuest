@@ -12,7 +12,7 @@ This README will guide you through setting up the project, understanding its str
 5. Project Structure
 6. Running the app
 7. Entity-Relationship model
-8. Contributers
+8. Contributors
 
 ## Introduction 
 TravelQuest is a comprehensive ticket booking application that aims to provide users with a efficient way to book travel tickets. 
@@ -63,9 +63,9 @@ Before you begin, ensure you have the following installed:
 4. Database Setup:
    * Create a PostgreSQL database and update the DATABASES seting in backend/settings.py
    * Run migrations:
-     ```bash
-         python manage.py makemigrations 
-         python manage.py migrate
+   ```bash
+      python manage.py makemigrations 
+      python manage.py migrate
       ```
  
 ## Project Structure 
