@@ -177,6 +177,7 @@ def payment(request):
                 return Response({"message": "Payment deleted successfully."}, status=status.HTTP_200_OK)
             except Exception as e:
                 return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
 @api_view(['GET', 'POST'])
 def vendor(request, vendor_id=None):
     if request.method == 'GET':
