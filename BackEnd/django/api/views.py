@@ -194,7 +194,7 @@ def transaction(request, transaction_id=None):
         transaction.delete()
         return Response({"message": "Transaction deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def payment(request):
     if request.method == 'GET':
         payment_id = request.query_params.get('id')
@@ -225,6 +225,32 @@ def payment(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'PUT':
+        payment_id = request.data.get('id')
+        if not payment_id:
+            return Response({"error": "Payment ID is required."}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            payment = Payment.objects.get(id=payment_id)
+        except Payment.DoesNotExist:
+            return Response({"error": "Payment not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = PaymentSerializer(payment, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        payment_id = request.data.get('id')
+        if not payment_id:
+            return Response({"error": "Payment ID is required."}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            payment = Payment.objects.get(id=payment_id)
+            payment.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Payment.DoesNotExist:
+            return Response({"error": "Payment not found."}, status=status.HTTP_404_NOT_FOUND)
     
 
             
