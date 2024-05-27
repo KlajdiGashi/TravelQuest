@@ -51,3 +51,8 @@ Content-Type: application/json
 ###
 GET http://localhost:8000/api/payment?id=1
 Content-Type: application/json
+
+
+###
+POST http://localhost:8000/api/change_password?username=John212&password=1234asdF!&new_password=Password123!
+Content-Type: application/json

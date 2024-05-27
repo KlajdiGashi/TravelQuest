@@ -2,8 +2,9 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth.decorators import login_required
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_204_NO_CONTENT
-from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer, VendorSerializer,TransactionSerializer, PaymentSerializer
+from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer, VendorSerializer,TransactionSerializer, PaymentSerializer, ChangePasswordSerializer
 from .models import Ticket, User, Vendor, Transaction, Payment
 import json
 
@@ -217,3 +218,25 @@ def vendor(request, vendor_id=None):
             serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    
+
+
+@api_view(['POST'])
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        serializer = ChangePasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            user = request.user
+            old_password = serializer.validated_data['old_password']
+            new_password = serializer.validated_data['new_password']
+
+            # Check if the old password matches
+            if not user.check_password(old_password):
+                return Response({"error": "Old password is incorrect."}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Update the password
+            user.set_password(new_password)
+            user.save()
+            return Response({"message": "Password changed successfully."}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

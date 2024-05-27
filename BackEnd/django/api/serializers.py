@@ -99,3 +99,11 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = ['id', 'payment', 'booking', 'active']
+
+class ChangePasswordSerializer(serializers.ModelSerializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True, validators=[validate_password])
+
+    class Meta:
+        model = User
+        fields = ['old_password', 'new_password'] 

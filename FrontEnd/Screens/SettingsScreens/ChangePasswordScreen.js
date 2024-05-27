@@ -1,8 +1,7 @@
-// ChangePasswordScreen.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons'; // Added for consistency with the LoginScreen
+import { Ionicons } from '@expo/vector-icons';
 import Logo from '../../assets/Logo.png';
 import BackgroundImage from '../../assets/BackgroundImage.png';
 
@@ -13,9 +12,29 @@ const ChangePasswordScreen = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const navigation = useNavigation();
 
-  const handleChangePassword = () => {
-    // Logic to handle password change
-    alert('Password changed successfully!');
+  const handleChangePassword = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/change_password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          old_password: password,
+          new_password: newPassword,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message);
+        navigation.navigate('Settings');
+      } else {
+        alert(data.error);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again later.');
+    }
   };
 
   return (
