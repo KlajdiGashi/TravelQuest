@@ -41,25 +41,33 @@ Before you begin, ensure you have the following installed:
 **Installation** 
 
 1. Clone the Repository:
-   ``` git clone https://github.com/yourusername/travelquest.git ``
-   ``  cd travelquest ``
+   ```
+   git clone https://github.com/yourusername/travelquest.git 
+   cd travelquest
+   
+   ```
 
 
 2. Frontend Setup:
-   ``` cd frontend ``
-   ``  npm install ``
-  
+   ```
+      cd frontend
+      npm install
+   ```
 
 3. Backend Setup:
-   ``` cd backend  ``
-   ``  python -m venv venv ``
+   ```bash
+      cd backend  
+      python -m venv venv
+   ```
   
 
 4. Database Setup:
    * Create a PostgreSQL database and update the DATABASES seting in backend/settings.py
    * Run migrations:
-     ``` python manage.py makemigrations ``
-     ``  python manage.py migrate ``
+     ```
+         python manage.py makemigrations 
+         python manage.py migrate
+      ```
 
 ## Project Structure 
 
