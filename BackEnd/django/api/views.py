@@ -5,7 +5,7 @@ from rest_framework import status
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_204_NO_CONTENT
-from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer,BookingSerializer, VendorSerializer,TransactionSerializer, PaymentSerializer, ChangePasswordSerializer
+from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer,BookingSerializer, VendorSerializer,TransactionSerializer,PaymentSerializer
 from .models import Ticket,Booking, User, Vendor, Transaction, Payment
 from django.contrib.auth import SESSION_KEY
 import json, uuid
@@ -145,29 +145,54 @@ def vendor(request, vendor_id=None):
             return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-
-@api_view(['GET', 'POST'])
-def transaction(request):
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+def transaction(request, transaction_id=None):
     if request.method == 'GET':
-        transaction_id = request.query_params.get('id')
         if transaction_id:
             try:
                 transaction = Transaction.objects.get(id=transaction_id)
                 serializer = TransactionSerializer(transaction)
-                return Response(serializer.data, status=HTTP_200_OK)
+                return Response(serializer.data, status=status.HTTP_200_OK)
             except Transaction.DoesNotExist:
-                return Response({"error": "Transaction not found."}, status=HTTP_400_BAD_REQUEST)
+                return Response({"error": "Transaction not found."}, status=status.HTTP_404_NOT_FOUND)
         else:
             transactions = Transaction.objects.all()
             serializer = TransactionSerializer(transactions, many=True)
-            return Response(serializer.data, status=HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
     
     elif request.method == 'POST':
         serializer = TransactionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=HTTP_201_CREATED)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'PUT':
+        if not transaction_id:
+            return Response({"error": "Transaction ID is required for PUT method."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            transaction = Transaction.objects.get(id=transaction_id)
+        except Transaction.DoesNotExist:
+            return Response({"error": "Transaction not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = TransactionSerializer(transaction, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        if not transaction_id:
+            return Response({"error": "Transaction ID is required for DELETE method."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            transaction = Transaction.objects.get(id=transaction_id)
+        except Transaction.DoesNotExist:
+            return Response({"error": "Transaction not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+        transaction.delete()
+        return Response({"message": "Transaction deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST'])
 def payment(request):
@@ -201,23 +226,7 @@ def payment(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-@api_view(['GET', 'DELETE'])
-def payment_detail(request, pk):
-    try:
-        payment = Payment.objects.get(pk=pk)
-    except Payment.DoesNotExist:
-        return Response({"error": "Payment not found."}, status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serializer = PaymentSerializer(payment)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    elif request.method == 'DELETE':
-        try:
-            payment.delete()
-            return Response({"message": "Payment deleted successfully."}, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
 @api_view(['GET', 'POST'])
 def vendor(request, vendor_id=None):
@@ -241,25 +250,3 @@ def vendor(request, vendor_id=None):
             return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-
-'''
-@api_view(['POST'])
-@login_required
-def change_password(request):
-    if request.method == 'POST':
-        serializer = ChangePasswordSerializer(data=request.data)
-        if serializer.is_valid():
-            user = request.user
-            old_password = serializer.validated_data['old_password']
-            new_password = serializer.validated_data['new_password']
-
-            # Check if the old password matches
-            if not user.check_password(old_password):
-                return Response({"error": "Old password is incorrect."}, status=status.HTTP_400_BAD_REQUEST)
-
-            # Update the password
-            user.set_password(new_password)
-            user.save()
-            return Response({"message": "Password changed successfully."}, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-'''
