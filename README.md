@@ -11,7 +11,8 @@ This README will guide you through setting up the project, understanding its str
    * Installation
 5. Project Structure
 6. Running the app
-7. Contributing
+7. Entity-Relationship model
+8. Contributers
 
 ## Introduction 
 TravelQuest is a comprehensive ticket booking application that aims to provide users with a efficient way to book travel tickets. 
@@ -41,15 +42,13 @@ Before you begin, ensure you have the following installed:
 **Installation** 
 
 1. Clone the Repository:
-   ```
+   ```bash
    git clone https://github.com/yourusername/travelquest.git 
    cd travelquest
+   ```
    
-   ```
-
-
 2. Frontend Setup:
-   ```
+   ```bash
       cd frontend
       npm install
    ```
@@ -64,11 +63,47 @@ Before you begin, ensure you have the following installed:
 4. Database Setup:
    * Create a PostgreSQL database and update the DATABASES seting in backend/settings.py
    * Run migrations:
-     ```
+     ```bash
          python manage.py makemigrations 
          python manage.py migrate
       ```
-
+ 
 ## Project Structure 
+The project is divided into two main directories: frontend and backend.
 
+TRAVELQUEST/
+├── BackEnd/
+│   ├── __.idea__/
+│   ├── django/
+│   │   ├── api/
+│   │   │   ├── __pycache__/
+│   │   │   │  │── migrations/ 
+│   │   │   │  │  │ ── __pycache__/
+│   │   ├── travelquest/
+│   │	├──models/
+├── FrontEnd/
+│   ├── expo/
+│   │   ├── web/
+│   ├── assets/
+│   ├── node_modules/
+│   ├── Screens/
+│   │   ├── SettingsScreens/
+│   │   │   ├── ChangePasswordScreen.js
+│   │   ├── App.js
+
+
+## Running the App 
+
+
+
+## Entity-Relationship (ER) model
+![ER Model](https://github.com/KlajdiGashi/TravelQuest/assets/118850687/7f28fc3c-4271-4642-a7c7-11c057fa9819)
+
+## Contributors 
+* Gyltene Sfishta
+* Klajdi Gashi
+* Kleda Gashi
+* Myhedin Vuciterna
+* Rinesa Hoxha
+* Rinesa Nura 
   
