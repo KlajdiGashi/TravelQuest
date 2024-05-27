@@ -71,26 +71,7 @@ Before you begin, ensure you have the following installed:
 ## Project Structure 
 The project is divided into two main directories: frontend and backend.
 
-TRAVELQUEST/
-├── BackEnd/
-│   ├── __.idea__/
-│   ├── django/
-│   │   ├── api/
-│   │   │   ├── __pycache__/
-│   │   │   │  │── migrations/ 
-│   │   │   │  │  │ ── __pycache__/
-│   │   ├── travelquest/
-│   │	├──models/
-├── FrontEnd/
-│   ├── expo/
-│   │   ├── web/
-│   ├── assets/
-│   ├── node_modules/
-│   ├── Screens/
-│   │   ├── SettingsScreens/
-│   │   │   ├── ChangePasswordScreen.js
-│   │   ├── App.js
-
+![image](https://github.com/KlajdiGashi/TravelQuest/assets/118850687/9f347462-5058-4507-90b9-370606378eb9)
 
 ## Running the App 
 
