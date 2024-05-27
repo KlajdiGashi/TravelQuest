@@ -11,7 +11,7 @@ export default function LoginScreen({ navigation }) {
   
   const loginUser = async (username, password) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/user?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
+      const response = await fetch(`http://192.168.1.7:8000/api/user?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

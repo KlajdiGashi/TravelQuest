@@ -15,8 +15,8 @@ export const getUserData = async () => {
   try {
     const userDataString = await AsyncStorage.getItem('userData');
     if (userDataString !== null) {
-      const userData = JSON.parse(userDataString);
-      console.log('User data retrieved successfully:', userData);
+      let userData = JSON.parse(userDataString);
+      //console.log('User data retrieved successfully:', userData);
       return userData;
     } else {
       console.log('No user data found.');

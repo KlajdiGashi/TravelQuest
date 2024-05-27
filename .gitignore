@@ -40,3 +40,5 @@ BackEnd/venv
 BackEnd/test.py
 BackEnd/requirements.txt
 BackEnd/django/travelquest/__pycache__
+BackEnd/django/travelquest/settings.py
+BackEnd/django/travelquest/settings.py
