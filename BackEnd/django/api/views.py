@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.decorators import login_required
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_204_NO_CONTENT
-from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer, VendorSerializer,TransactionSerializer, PaymentSerializer, ChangePasswordSerializer
-from .models import Ticket, User, Vendor, Transaction, Payment
+from .serializers import RegisterSerializer, LoginSerializer, TicketSerializer,BookingSerializer, VendorSerializer,TransactionSerializer, PaymentSerializer, ChangePasswordSerializer
+from .models import Ticket,Booking, User, Vendor, Transaction, Payment
 import json
 
 @api_view(['POST', 'GET', 'PUT', 'DELETE'])
@@ -100,6 +100,20 @@ def ticket(request):
 
         ticket.delete()
         return Response( {'message': 'Ticket deleted successfully.'}, status=HTTP_204_NO_CONTENT)
+    
+@api_view(['GET', 'POST'])
+def booking(request):
+    if request.method == 'GET':
+        bookings = Booking.objects.all()
+        serializer = BookingSerializer(bookings, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = BookingSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 def vendor(request, vendor_id=None):
