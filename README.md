@@ -1,4 +1,5 @@
 # TravelQuest
+
 Welcome to **TravelQuest**, an ticket booking application designed to simplify your travel planning experience. TravelQuest is developed using React Native for the frontend and Python with Django for the backend.  
 This README will guide you through setting up the project, understanding its structure.
 
@@ -67,6 +68,24 @@ Before you begin, ensure you have the following installed:
       python manage.py makemigrations 
       python manage.py migrate
       ```
+      
+5. Implementation and usage of ORM
+    Prerequisites: 
+    - Created user model using Django's integrated UserManagers. This makes it easier to implement authentication.
+    - Created register and login serializers for user model. Allows us to return only the needed information back to client.
+    - Created endpoint for user model. Using GET for login and POST for register.
+
+    ORM usage:
+    ```
+    user = User.objects.filter(username=username).first() # used in login endpoint
+    ```
+    ```
+    serializer = RegisterSerializer(data = request.data)
+        
+        if serializer.is_valid():
+            serializer.save() # used in register endpoint
+    ```
+
  
 ## Project Structure 
 The project is divided into two main directories: frontend and backend.
@@ -87,4 +106,4 @@ The project is divided into two main directories: frontend and backend.
 * Myhedin Vuciterna
 * Rinesa Hoxha
 * Rinesa Nura 
-  
+

@@ -1,17 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../assets/BackgroundImage.png';
 import TicketView from './TicketView';
 import Profile from '../assets/profile.png';
+import { storeUserData, getUserData, clearUserData } from './UserDataStorage';
 import Animated, { Easing } from 'react-native-reanimated';
 import { createNativeStackNavigator, TransitionPresets } from '@react-navigation/native-stack';
 
 // Sample tickets data
+
+const getTickets = async () => {
+  try {
+    const response = await fetch(`http://192.168.1.7:8000/api/ticket`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    throw new Error('An error occurred. Please try again later.');
+  }
+};
+//const tickets = getTickets();
+
 const tickets = [
   { id: 1, location: 'New York', details: 'Details about New York', imageUrl: 'https://source.unsplash.com/random/200x200?ticket' },
   { id: 2, location: 'Paris', details: 'Details about Paris', imageUrl: 'https://source.unsplash.com/random/200x200?concert' },
+  { id: 3, location: 'London', details: 'Details about London', imageUrl: 'https://source.unsplash.com/random/200x200?ticket' },
+  { id: 4, location: 'Rome', details: 'Details about Rome', imageUrl: 'https://source.unsplash.com/random/200x200?concert' },
+  { id: 5, location: 'Belgium', details: 'Details about Belgium', imageUrl: 'https://source.unsplash.com/random/200x200?ticket' },
+  { id: 6, location: 'Munich', details: 'Details about Munich', imageUrl: 'https://source.unsplash.com/random/200x200?concert' },
 ];
+
 
 const MainScreen = () => {
   const navigation = useNavigation();
@@ -20,6 +44,8 @@ const MainScreen = () => {
     navigation.navigate('ProfileScreen');
   };
 
+  const user_data = getUserData();
+  console.log(user_data)
   return (
     <ImageBackground source={BackgroundImage} style={styles.container}>
       <View style={styles.headerContainer}>

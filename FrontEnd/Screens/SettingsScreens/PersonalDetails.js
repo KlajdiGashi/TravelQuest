@@ -2,14 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet ,ImageBackground} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../../assets/BackgroundImage.png';
+import { UserContext } from '../UserContext';
+import { storeUserData, getUserData, clearUserData } from '../UserDataStorage';
+
 
 // Dummy user data 
 const userData = {
-  name: 'John Doe',
-  email: 'johndoe@example.com',
-  number: '1234567890',
+  name: 'Test Test',
+  email: 'testtest@gmail.com',
+  number: '+38344000000',
   birthday: '01/01/1990',
 };
+async function fetchData() {
+  const data = await getUserData();
+  return data;
+}
 
 const PersonalDetailsScreen = () => {
   const navigation = useNavigation();
@@ -24,7 +31,7 @@ const PersonalDetailsScreen = () => {
     setName(userData.name);
     setEmail(userData.email);
     setNumber(userData.number);
-    setBirthday(userData.birthday);
+    setBirthday('10/10/2000');
   }, []);
 
   const handleEdit = () => {

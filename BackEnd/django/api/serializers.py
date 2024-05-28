@@ -1,46 +1,115 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from .models import User, Payment, Booking, Transaction, Ticket, Vendor
 from rest_framework.validators import UniqueValidator
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.password_validation import validate_password
-import bcrypt
-import base64
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import make_password
 
-class UserSerializer(serializers.ModelSerializer):
+
+class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = '__all__'
-        
+        model = Payment
+        fields = ['id', 'type', 'details']
+
+
+from rest_framework import serializers
+from .models import User, Payment
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ['id', 'type', 'details']
+
 class RegisterSerializer(serializers.ModelSerializer):
-    user = serializers.CharField(
-        required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())]
-    )
-
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    confirmPassword = serializers.CharField(write_only=True, required=True)
-    salt = serializers.CharField(write_only=True, required=True)
+    confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'salt', 'fullname', 'number', 'location')
-        
-    def generateSalt(self):
-        return base64.b64encode(bcrypt.gensalt()).decode('utf-8')
+        fields = ['username', 'fullname', 'number', 'role', 'email', 'password', 'confirm_password']
 
-    def hashPassword(self, password, salt):
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-        return base64.b64encode(hashed_password).decode('utf-8')
     def validate(self, attrs):
-        if attrs['password'] != attrs['confirmPassword']:
+        if attrs['password'] != attrs['confirm_password']:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
+
+        email = attrs.get('email')
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError({"email": "This email address is already in use."})
 
         return attrs
 
     def create(self, validated_data):
-        del validated_data['password2']
-        user = User.objects.create(**validated_data)
-
-        user.set_password(validated_data['password'])
-        user.save()
-
+        validated_data.pop('confirm_password')
+        user = User.objects.create_user(**validated_data)
         return user
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+        validated_data.pop('confirm_password', None)
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        if password:
+            instance.password = make_password(password)
+
+        instance.save()
+        return instance
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(style={'input_type': 'password'}, trim_whitespace=False)
+
+    def validate(self, attrs):
+        username = attrs.get('username')
+        password = attrs.get('password')
+
+        if username and password:
+            user = User.objects.filter(username=username).first()
+            if user:
+                if check_password(password, user.password):
+                    attrs['user'] = user
+                    return attrs
+                else:
+                    msg = 'Unable to log in with provided credentials.'
+                    raise serializers.ValidationError(msg, code='authorization')
+            else:
+                msg = 'User with this username does not exist.'
+                raise serializers.ValidationError(msg, code='authorization')
+        else:
+            msg = 'Must include "username" and "password".'
+            raise serializers.ValidationError(msg, code='authorization')
+
+class UserSerializer(serializers.ModelSerializer):
+    payments = PaymentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['guid', 'username', 'fullname', 'number', 'role', 'payments']
+
+class VendorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vendor
+        fields = ['id', 'vendor_name']
+
+class TicketSerializer(serializers.ModelSerializer):
+    vendor_id = serializers.PrimaryKeyRelatedField(queryset=Vendor.objects.all())
+
+    class Meta:
+        model = Ticket
+        fields = ['id', 'from_location', 'to_location', 'start_time', 'end_time', 'price', 'type', 'seat', 'vendor_id', 'image']
+class BookingSerializer(serializers.ModelSerializer):
+    ticket = TicketSerializer(read_only=True)
+
+    class Meta:
+        model = Booking
+        fields = ['id', 'ticket', 'seat']
+
+class TransactionSerializer(serializers.ModelSerializer):
+    payment = PaymentSerializer(read_only=True)
+    booking = BookingSerializer(read_only=True)
+
+    class Meta:
+        model = Transaction
+        fields = ['id', 'payment', 'booking', 'active']
+

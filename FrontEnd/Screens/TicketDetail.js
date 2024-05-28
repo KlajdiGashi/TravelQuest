@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const TicketDetail = ({ route }) => {
   const { ticket } = route.params;
-
+  
   return (
     
     <View style={styles.container}>

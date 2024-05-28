@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, ImageBackground } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import BackgroundImage from '../../assets/BackgroundImage.png';
+import { storeUserData, getUserData, clearUserData } from '../UserDataStorage';
 
 const EditPersonalDetailsScreen = () => {
   const navigation = useNavigation();
@@ -12,12 +13,17 @@ const EditPersonalDetailsScreen = () => {
   const [number, setNumber] = useState(userData.number);
   const [birthday, setBirthday] = useState(userData.birthday);
 
+  const data = getUserData();
+  console.log(data);
+  setName(data.fullname);
+  setEmail(data.email);
+  setNumber(data.number);
   const handleSave = () => {
     // Implement save functionality here
     // You can use the state values (name, email, number, birthday) to save user's details
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Number:', number);
+    console.log('Name:', data.fullname);
+    console.log('Email:', data.email);
+    console.log('Number:', data.number);
     console.log('Birthday:', birthday);
     // After saving, navigate back to PersonalDetailsScreen
     navigation.goBack();
