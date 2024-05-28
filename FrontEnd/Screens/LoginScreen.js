@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground, I
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { storeUserData, getUserData, clearUserData } from './UserDataStorage';
+import WaitScreen from './WaitScreen';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -54,6 +55,9 @@ export default function LoginScreen({ navigation }) {
   const handleForgotPassword = () => {
     navigation.navigate('ForgotPassword');
   };
+  const handleWait = () => {
+    navigation.navigate('WaitScreen');
+  };
 
   return (
     <ImageBackground source={require('../assets/BackgroundImage.png')} style={styles.container}>
@@ -89,7 +93,7 @@ export default function LoginScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+      <TouchableOpacity onPress={handleWait} style={styles.loginButton}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <View style={styles.buttonContainer}>
