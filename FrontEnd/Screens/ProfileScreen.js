@@ -31,7 +31,8 @@ const SettingsScreen = () => {
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('PasswordAndSecurity')}>
         <Image source={shieldIcon} style={styles.icon} />
         <Text style={styles.buttonText}>Password and Security</Text>
-        <Text style={styles.arrow}></Text>
+        <Text style={styles.arrow}>></Text>
+
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigateToScreen('PersonalDetails')}>
         <Image source={resumeIcon} style={styles.icon} />

@@ -1,33 +1,65 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { storeUserData, getUserData, clearUserData } from './UserDataStorage';
+
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSignup = () => {
-    if (name.trim() === '' || number.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
+  const registerUser = async (user_data) => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user_data),
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error:', error);
+      throw new Error('An error occurred. Please try again later.');
+    }
+  };
+
+  const handleSignup = async () => {
+    if (name.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
       alert('Please fill in all fields.');
     } else if (password !== confirmPassword) {
       alert('Passwords do not match. Please try again.');
     } else if (!isPasswordValid(password)) {
       alert("Password must be at least 8 characters long and contain at least one uppercase letter and one number or special character.");
     } else {
-      navigation.navigate('Home');
-    }
-  };
-
-  const handelFocus = () => {
-    setNumber('+383');
-  };
-
-  const handleBlur = () => {
-    if (number === '+383') {
-      setNumber('');
+      const user_data = {
+        username: username,
+        fullname: name,
+        email: email,
+        password: password,
+        confirm_password: confirmPassword,
+      };
+      
+      try {
+        let data = await registerUser(user_data);
+        console.log(data);
+        if (data.guid) { // or check another field to confirm successful registration
+          alert('Signup successful!');
+          clearUserData();
+          storeUserData(data);
+          navigation.navigate('MainScreen');
+        } else {
+          alert('Signup failed: ' + JSON.stringify(data));
+        }
+      } catch (error) {
+        alert(error.message);
+      }
     }
   };
 
@@ -54,15 +86,21 @@ export default function SignupScreen({ navigation }) {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: '#000000' }]}>Number:</Text>
+        <Text style={[styles.label, { color: '#000000' }]}>Username:</Text>
         <TextInput
           style={[styles.input, { backgroundColor: '#F5F5F5', borderRadius: 10 }]}
-          onChangeText={setNumber}
-          value={number}
-          onFocus={handelFocus}
-          onBlur={handleBlur}
-          placeholder="Enter your number"
-          keyboardType="phone-pad"
+          onChangeText={setUsername}
+          value={username}
+          placeholder="Enter your username"
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={[styles.label, { color: '#000000' }]}>Email:</Text>
+        <TextInput
+          style={[styles.input, { backgroundColor: '#F5F5F5', borderRadius: 10 }]}
+          onChangeText={setEmail}
+          value={email}
+          placeholder="Enter your email"
         />
       </View>
       <View style={styles.inputContainer}>
@@ -81,17 +119,17 @@ export default function SignupScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: '#F5F5F5' }]}>Confirm Password:</Text>
+        <Text style={[styles.label, { color: '#000000' }]}>Confirm Password:</Text>
         <View style={[styles.passwordContainer, { backgroundColor: '#F5F5F5', borderRadius: 10 }]}>
           <TextInput
             style={[styles.passwordInput, { backgroundColor: '#F5F5F5' }]}
             onChangeText={setConfirmPassword}
             value={confirmPassword}
             placeholder="Confirm your password"
-            secureTextEntry={!showPassword}
+            secureTextEntry={!showConfirmPassword}
           />
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
-            <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="black" />
+          <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)} style={styles.eyeIcon}>
+            <Ionicons name={showConfirmPassword ? 'eye-off' : 'eye'} size={24} color="black" />
           </TouchableOpacity>
         </View>
       </View>
@@ -135,7 +173,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   passwordContainer: {
-    height:50,
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F2F2F2',

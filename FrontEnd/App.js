@@ -96,7 +96,7 @@ export default function App() {
           options={{headerShown:true,title:"Add Payment"}}
         />
 
-      </Stack.Navigator>
-    </NavigationContainer>
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }

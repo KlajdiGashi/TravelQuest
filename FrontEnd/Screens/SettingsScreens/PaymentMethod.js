@@ -11,6 +11,7 @@ const PaymentMethodScreen = () => {
     { id: '3', type: 'PayPal', last4Digits: '8765' },
   ]);
 
+
   const renderPaymentMethod = ({ item }) => (
     <TouchableOpacity style={styles.paymentMethodItem}>
       <Text style={styles.paymentMethodText}>{item.type}</Text>
